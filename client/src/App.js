@@ -1,14 +1,14 @@
 // import logo from './logo.svg';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Home, Swap, NotFound } from './pages'
-import { Navbar } from './components'
+import { Home, MyToken, Swap, Staking, DashBoard, NotFound } from './pages'
+import { Navigation } from './components'
 import './assets/css/App.css';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navigation />
         <Routes>
           <Route path="/" element={<Home  />} />
           <Route path="/mytoken" element={<MyToken />} />
