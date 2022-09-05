@@ -1,3 +1,3 @@
-export { default as Deposit } from './deposit'
-export { default as Withdraw } from './withdraw'
 export { default as Pool } from './pool'
+export { default as Single } from './single'
+export { default as Pair } from './pair'

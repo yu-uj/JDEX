@@ -38,18 +38,20 @@ function Staking () {
 						<Card.Footer>
 							<>
 								<Button variant="primary" onClick={handleShow} >Deposit</Button>
-								<Button as={Link} to="/staking/withdraw" variant="primary">Withdraw</Button>
+								<Button variant="primary" onClick={handleShow}>Withdraw</Button>
 								<Modal
+									size="lg"
 									show={show}
 									onHide={handleClose}
 									backdrop="static"
 									keyboard={false}
+									aria-labelledby="example-modal-sizes-title-sm"
 								>
 									<Modal.Header closeButton>
 									<Modal.Title>Pool Name</Modal.Title>
 									</Modal.Header>
 									<Modal.Body>
-									<p>예치하실</p>
+									<p>현재 보유 토큰</p>
 									</Modal.Body>
 									<Modal.Footer>
 									<Button variant="secondary" onClick={handleClose}>
