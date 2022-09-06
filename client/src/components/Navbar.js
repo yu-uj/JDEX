@@ -1,12 +1,12 @@
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import React, { useState, Component } from "react";
 import Modal from 'react-modal';
 
 function Navigation() {
 	const [modalIsOpen, setModalIsOpen] = useState(false);
-	const [cw, setCw] = useState("Connet Wallet")
-	const [ctk, setCtk] = useState("Connet to Kaikas")
+	const [cw, setCw] = useState("Connect Wallet")
+	const [ctk, setCtk] = useState("Connect to Kaikas")
 	const [account, setAccount] = useState('');
 
 	const connectWallet = async () => {
@@ -35,7 +35,11 @@ function Navigation() {
 						<Nav.Link as={Link} to="/">Home</Nav.Link>
 						<Nav.Link as={Link} to="/mytoken">MyToken</Nav.Link>
 						<Nav.Link as={Link} to="/swap">Swap</Nav.Link>
-						<Nav.Link as={Link} to="/staking">Staking</Nav.Link>
+						{/* <Nav.Link as={Link} to="/staking">Staking</Nav.Link> */}
+						<NavDropdown title="Staking" id="navbarScrollingDropdown">
+							<NavDropdown.Item as={Link} to="/staking">Single</NavDropdown.Item>
+							<NavDropdown.Item as={Link} to="/staking">Pair</NavDropdown.Item>
+						</NavDropdown>
 						<Nav.Link as={Link} to="/dashboard">DashBoard</Nav.Link>
 						<button onClick={() => setModalIsOpen(true)}>{cw}</button>
 						<Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
