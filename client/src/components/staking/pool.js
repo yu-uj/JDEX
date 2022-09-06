@@ -8,10 +8,7 @@
 function Pool () {
     return (
         <div className="Pool">
-            {/* <Card.Footer>
-				<Button as={Link} to="/staking/deposit" variant="primary">Deposit</Button>
-				<Button as={Link} to="/staking/withdraw" variant="primary">Withdraw</Button>
-			</Card.Footer> */}
+            
         </div>
     );
 };

@@ -1,7 +1,7 @@
 function Single() {
     return (
         <div>
-            <p>Single Pool List</p>
+            <h1>Single Pool List</h1>
             
         </div>
     );

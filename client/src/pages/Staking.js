@@ -9,8 +9,8 @@ function Staking () {
 	const [show, setShow] = useState(false);
 	const [create, setCreate] = useState(false);
 
-  	const handleClose = () => setShow(false);
-  	const handleShow = () => setShow(true); 
+  	const handleShow = () => setShow(true);
+	const handleClose = () => setShow(false);
 	
 	const handleCreate = () => setCreate(true);
 	const createClose = () => setCreate(false);
