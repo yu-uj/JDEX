@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { useSelector } from 'react-redux'
-import { Card, Row, Col, Container, Button, Modal } from 'react-bootstrap';
-import { Link, Route } from 'react-router-dom';
-import { Deposit, Withdraw } from '../components/staking'
+import { Card, Row, Col, Button, Modal, Form } from 'react-bootstrap';
+import { Route } from 'react-router-dom';
+import { Pool, Single, Pair, Create } from '../components/staking'
 
 function Staking () {
 	const [show, setShow] = useState(false);
+	const [create, setCreate] = useState(false);
 
   	const handleClose = () => setShow(false);
   	const handleShow = () => setShow(true);
+	
+	const handleCreate = () => setCreate(true);
+	const createClose = () => setCreate(false);
 
     return (
         <div className="Pool">
@@ -31,7 +35,7 @@ function Staking () {
 						<Card.Title>Token Name</Card.Title>
 						<Card.Text>
 							<p>총 예치규모</p>
-							{/* 총 예치규모 */}
+							
 							<p>내 보유량</p>
 						</Card.Text>
 						</Card.Body>
@@ -52,18 +56,39 @@ function Staking () {
 									</Modal.Header>
 									<Modal.Body>
 									<p>현재 보유 토큰</p>
+										<Form>
+											<Form.Group className="mb-3">
+												<Form.Label>Select Pool Type</Form.Label>
+												<Form.Select >
+												<option>Single Pool</option>
+												<option>Pair Pool</option>
+												</Form.Select>
+											</Form.Group>
+											<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+												<Form.Label>Token Name</Form.Label>
+												<Form.Control
+												type="text"
+												placeholder="EX) ETH"
+												autoFocus
+												/>
+											</Form.Group>
+											<Form.Group
+												className="mb-3"
+												controlId="exampleForm.ControlTextarea1"
+											>
+												<Form.Label>Price</Form.Label>
+												<Form.Control as="textarea" rows={1} />
+											</Form.Group>
+										</Form>
 									</Modal.Body>
 									<Modal.Footer>
 									<Button variant="secondary" onClick={handleClose}>
-										Close
+										취소하기
 									</Button>
 									<Button variant="primary">Deposit</Button>
 									</Modal.Footer>
 								</Modal>
-								{/* <Button as={Link} to="/staking/deposit" variant="primary">Deposit</Button>
-								<Button as={Link} to="/staking/withdraw" variant="primary">Withdraw</Button> */}
-								{/* <Route exact path={Link} render={()=>(<h3>Please select any Button</h3>)}/>
-           						<Route path={Link} component={Deposit}/> */}
+								
 							</>
 						</Card.Footer>
 					</Card>
@@ -71,8 +96,56 @@ function Staking () {
 				))}
 				</Row>
             </div>
-			<div>
-
+			<div className="createbtn">
+				<div className="d-grid gap-2">
+					<Button variant="primary" size="lg" onClick={handleCreate}>
+						Create New Pool
+					</Button>
+					<Modal
+						size="lg"
+						show={create}
+						onHide={createClose}
+						backdrop="static"
+						keyboard={false}
+						aria-labelledby="example-modal-sizes-title-sm"
+					>
+						<Modal.Header closeButton>
+						<Modal.Title>Create New Pool</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+							<Form>
+								<Form.Group className="mb-3">
+									<Form.Label>Select Pool Type</Form.Label>
+									<Form.Select >
+									<option>Single Pool</option>
+									<option>Pair Pool</option>
+									</Form.Select>
+								</Form.Group>
+								<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+									<Form.Label>Token Name</Form.Label>
+									<Form.Control
+									type="text"
+									placeholder="EX) ETH"
+									autoFocus
+									/>
+								</Form.Group>
+								<Form.Group
+									className="mb-3"
+									controlId="exampleForm.ControlTextarea1"
+								>
+									<Form.Label>Price</Form.Label>
+									<Form.Control as="textarea" rows={1} />
+								</Form.Group>
+							</Form>
+						</Modal.Body>
+						<Modal.Footer>
+						<Button variant="secondary" onClick={createClose}>
+							취소하기
+						</Button>
+						<Button variant="primary">Create</Button>
+						</Modal.Footer>
+					</Modal>
+				</div>
 			</div>
         </div>
     );
