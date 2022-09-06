@@ -2,6 +2,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home, MyToken, Swap, Staking, DashBoard, NotFound } from './pages'
 import { Navigation } from './components'
+import { Single, Pair } from './components/staking'
 import './assets/css/App.css';
 
 function App() {
@@ -16,6 +17,9 @@ function App() {
           <Route path="/staking" element={<Staking />} />
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/*" element={<NotFound />} />
+
+          <Route path="/staking/single" element={<Single />} />
+          <Route path="/staking/pair" element={<Pair />} />
         </Routes>
       </BrowserRouter>
     </div>
