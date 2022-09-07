@@ -10,17 +10,31 @@ function MyToken() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [Toaddress, setToAddress] = useState(""); // 받는 사람 주소
+  const [amount, setAmount] = useState(""); // 전송할 토큰 양
+  console.log(Toaddress);
+  console.log(amount);
+  let Amount = amount // amount * token_decimal, 
+  
   const handleTransfer = () => {
     const req_body = {
-      send_address: "",
-      receive_address: "",
-      token_amount: ""
+      sender_address: "", // kaikas 연결된 지갑 주소?
+      recipient_address: Toaddress,
+      token_amount: Amount
     }
+    console.log(req_body);
     // 서버로 토큰 transfer하는 요청 전송
-    axios.post(`http://localhost:4000/mytoken/token_transfer`)
+    axios.post(`http://localhost:4000/mytoken/token_transfer`, req_body)
       .then((res) => {
         console.log(res);
-        setTokenList(res.data['data']);
+        if (res.status === 200) {
+          window.alert("토큰 전송 완료!");
+          window.location.reload();
+        }
+        else {
+          window.alert("토큰 전송 실패!");
+          window.location.reload();
+        }
       })
     setShow(false); // 모달 창 닫기
   }
@@ -55,6 +69,9 @@ function MyToken() {
   }, []);
 
   const data = Token_List(TokenList);
+
+  const handleInput1 = (e) => {setToAddress(e.target.value);};
+  const handleInput2 = (e) => {setAmount(e.target.value)};
 
   return (
     <>
@@ -96,6 +113,7 @@ function MyToken() {
               <Form.Control
                 placeholder="0x..."
                 autoFocus
+                onChange={(e) => handleInput1(e)}
               />
             </Form.Group>
             <Form.Group
@@ -103,7 +121,7 @@ function MyToken() {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>보낼 수량</Form.Label>
-              <Form.Control as="textarea" rows={1} />
+              <Form.Control as="textarea" rows={1} onChange={(e) => handleInput2(e)} />
             </Form.Group>
           </Form>
         </Modal.Body>

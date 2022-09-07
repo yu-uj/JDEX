@@ -119,7 +119,7 @@ module.exports = {
 
     },
     kip7pool_staking : async (req, res) => {
-
+        
     },
     klaypool_staking : async (req, res) => {
 
