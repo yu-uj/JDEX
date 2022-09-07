@@ -4,6 +4,10 @@ import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { useSelector } from 'react-redux';
+
+const Caver = require('caver-js');
+const caver = new Caver(new Caver.providers.WebsocketProvider("wss://public-node-api.klaytnapi.com/v1/baobab/ws"));
 
 function MyToken() {
 
@@ -14,8 +18,10 @@ function MyToken() {
   const [amount, setAmount] = useState(""); // 전송할 토큰 양
   console.log(Toaddress);
   console.log(amount);
-  let Amount = amount // amount * token_decimal, 
-  
+  let Amount = amount // amount * token_decimal,
+  const address = useSelector(state => state.counter);
+  console.log(address.number);
+
   const handleTransfer = () => {
     const req_body = {
       sender_address: "", // kaikas 연결된 지갑 주소?
@@ -73,6 +79,14 @@ function MyToken() {
   const handleInput1 = (e) => {setToAddress(e.target.value);};
   const handleInput2 = (e) => {setAmount(e.target.value)};
 
+  const klaybalance = async () => {  
+    let bal = await caver.klay.getBalance(address.number);
+    let a = await caver.utils.fromPeb(bal, "KLAY");
+    return a;
+  }
+  let klaybal = klaybalance().then(klaybal => console.log(klaybal))
+  console.log(klaybal);
+
   return (
     <>
       <div>my Token</div>
@@ -88,7 +102,18 @@ function MyToken() {
           </Row>
         </ListGroup.Item>
         <ListGroup.Item as="li">
+          <Row>
+            <Col xs={8} sm={5}>klay</Col>
+            <Col xs={4} sm={3}>{}</Col>
+            <Col xs={4} sm={2}>price</Col>
+            <Col xs={4} sm={1}><Button variant="primary" onClick={handleShow}>Transfer
+                </Button>
+            </Col>
+          </Row>
+        </ListGroup.Item>
+        
           {data.map((el) => (
+            <ListGroup.Item as="li">
             <Row>
               <Col xs={8} sm={5}>{el.token_name}</Col>
               <Col xs={4} sm={3}>{el.token_amount}</Col>
@@ -98,9 +123,10 @@ function MyToken() {
                 </Button>
               </Col>
             </Row>
+            </ListGroup.Item>
           ))
           }
-        </ListGroup.Item>
+        
       </ListGroup>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
