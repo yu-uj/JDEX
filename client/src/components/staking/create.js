@@ -12,10 +12,6 @@ function Create() {
 
     return (
         <div className="createbtn">
-            
-
-
-
             <div className="d-grid gap-2">
                 <Button variant="primary" size="lg" onClick={handleCreate}>
                     Create New Pool
@@ -37,11 +33,13 @@ function Create() {
                         onSelect={(k) => setKey(k)}
                         className="mb-3"
                         >
-                        <Tab eventKey="klay" title="Klay">
+
+                        {/* Create klayPair Tab */}
+                        <Tab eventKey="klay" title="Klay Pair">
                         <Modal.Body>
                             <Form>
                                 <Form.Group className="mb-3">
-                                <Form.Label>Klay</Form.Label>
+                                <Form.Label>Klay Pair</Form.Label>
                                     <Form.Select disabled >
                                     <option>Klay</option>
                                     </Form.Select>
@@ -56,7 +54,7 @@ function Create() {
                                     </Form.Select>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Token Name</Form.Label>
+                                    <Form.Label>Pair Name</Form.Label>
                                     <Form.Control
                                     type="text"
                                     placeholder="EX) ETH"
@@ -67,7 +65,7 @@ function Create() {
                                     className="mb-3"
                                     controlId="exampleForm.ControlTextarea1"
                                 >
-                                    <Form.Label>Price</Form.Label>
+                                    <Form.Label>Pair Symbol</Form.Label>
                                     <Form.Control as="textarea" rows={1} />
                                 </Form.Group>
                             </Form>
@@ -80,7 +78,8 @@ function Create() {
                         </Modal.Footer>
                         </Tab>
 
-                        <Tab eventKey="other" title="Other">
+                        {/* Create Token1&2 Pair Tab */}
+                        <Tab eventKey="jdx" title="JDX Pair">
                         <Modal.Body>
                             <Form>
                                 <Form.Group className="mb-3">
@@ -101,7 +100,7 @@ function Create() {
                                     </Form.Select>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Token Name</Form.Label>
+                                    <Form.Label>Pair Name</Form.Label>
                                     <Form.Control
                                     type="text"
                                     placeholder="EX) ETH"
@@ -112,7 +111,7 @@ function Create() {
                                     className="mb-3"
                                     controlId="exampleForm.ControlTextarea1"
                                 >
-                                    <Form.Label>Price</Form.Label>
+                                    <Form.Label>Pair Symbol</Form.Label>
                                     <Form.Control as="textarea" rows={1} />
                                 </Form.Group>
                         </Form>
