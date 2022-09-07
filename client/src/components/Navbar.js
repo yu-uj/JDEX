@@ -2,6 +2,7 @@ import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import React, { useState, Component } from "react";
 import Modal from 'react-modal';
+import CounterContainer from '../redux/CounterContainer';
 
 function Navigation() {
 	const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -40,19 +41,7 @@ function Navigation() {
 							<NavDropdown.Item as={Link} to="/staking/pair">Pair</NavDropdown.Item>
 						</NavDropdown>
 						<Nav.Link as={Link} to="/dashboard">DashBoard</Nav.Link>
-						<button onClick={() => setModalIsOpen(true)}>{cw}</button>
-						<Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-							<h2>Connect Wallet</h2>
-							<div>You can start using JDex right away, using Kaikas</div>
-							<button
-								className="metaConnect"
-								onClick={() => {
-									connectWallet();
-								}}
-							>
-								{ctk}
-							</button>
-						</Modal>
+						<CounterContainer />
 					</Nav>
 				</Container>
 			</Navbar>
