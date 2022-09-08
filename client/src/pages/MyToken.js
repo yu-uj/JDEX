@@ -18,13 +18,17 @@ function MyToken() {
   const handleShow = () => setShow(true);
   const [Toaddress, setToAddress] = useState(""); // 받는 사람 주소
   const [amount, setAmount] = useState(""); // 전송할 토큰 양
-  console.log(Toaddress);
-  console.log(amount);
+  // console.log(Toaddress);
+  // console.log(amount);
   let Amount = amount // amount * token_decimal,
   const address = useSelector(state => state.counter);
-  console.log(address.number);
+  // console.log(address.number);
   const [balance, setbalance] = useState("");
   const [KIP7bal, setKIP7bal] = useState("");
+
+  const dummydata = {
+    token_address: '0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1'
+  }
 
 
   const handleTransfer = () => {
@@ -50,29 +54,14 @@ function MyToken() {
     setShow(false); // 모달 창 닫기
   }
 
-
-  const Token_List = (list) => {
-    let arr = [];
-    for (let i = 0; i < list.length; i++) {
-      let el = list[i];
-      let obj = {
-        token_name: el.token_name,
-        token_amount: "balanceOf로 불러오기",
-        token_price: "가격",
-        token_address : el.token_address
-      }
-      arr.push(obj);
-    }
-    return arr;
-  }
-
-
-  const [TokenList, setTokenList] = useState([]);
-  const getTokenLists = async () => {
+  const [TokenList, setTokenList] = useState([dummydata]);
+  const getTokenLists = () => {
     axios.get(`http://localhost:4000/mytoken/`)
       .then((res) => {
         console.log(res);
-        setTokenList(res.data['data']);
+        setTokenList(() => {
+          return res.data['data']
+        })
       })
   };
 
@@ -80,34 +69,51 @@ function MyToken() {
     getTokenLists();
   }, []);
 
+  const Token_List = (list) => {
+    let arr = [];
+    for (let i = 0; i < list.length; i++) {
+      let el = list[i];
+      // const KIP7Contract = new caver.klay.Contract(KIP7ABI, el.token_address);
+      // let bal = await KIP7Contract.methods.balanceOf(address.number).call();
+      // let a = await caver.utils.fromPeb(bal, "KLAY");
+      console.log(el.token_address)
+      let obj = {
+        token_name: el.token_name,
+        token_amount: "balanceOf로 불러오기",
+        token_price: "가격",
+        token_address: el.token_address
+      }
+      arr.push(obj);
+    }
+    return arr;
+  }
   const data = Token_List(TokenList);
 
-
-  const handleInput1 = (e) => {setToAddress(e.target.value);};
-  const handleInput2 = (e) => {setAmount(e.target.value)};
+  const handleInput1 = (e) => { setToAddress(e.target.value); };
+  const handleInput2 = (e) => { setAmount(e.target.value) };
 
   useEffect(() => {
-    const klaybalance = async () => {  
-        let bal = await caver.klay.getBalance(address.number);
-        let a = await caver.utils.fromPeb(bal, "KLAY");
-        console.log(a);
-        setbalance(a);
-        };
-        klaybalance();
-    }, [])
+    const klaybalance = async () => {
+      let bal = await caver.klay.getBalance(address.number);
+      let a = await caver.utils.fromPeb(bal, "KLAY");
+      console.log(a);
+      setbalance(a);
+    };
+    klaybalance();
+  }, [])
 
-  useEffect(() => { 
-      const KIP7balance = async (address) => {
-        const KIP7Contract = await new caver.klay.Contract(KIP7ABI, address);
-        let bal = await KIP7Contract.methods.balanceOf(address.number).call();
-        let a = await caver.utils.fromPeb(bal, "KLAY");
+  useEffect(() => {
+    const KIP7balance = async () => {
+      const KIP7Contract = await new caver.klay.Contract(KIP7ABI, data[2].token_address);
+      let bal = await KIP7Contract.methods.balanceOf(address.number).call();
+      let a = await caver.utils.fromPeb(bal, "KLAY");
       setKIP7bal(a);
     };
     KIP7balance();
-    }, [])
-    console.log(KIP7bal);
+  }, [TokenList])
+  console.log(KIP7bal)
 
-    console.log(data[0]);
+
   return (
     <>
       <div>my Token</div>
@@ -128,26 +134,25 @@ function MyToken() {
             <Col xs={4} sm={3}>{balance}</Col>
             <Col xs={4} sm={2}>price</Col>
             <Col xs={4} sm={1}><Button variant="primary" onClick={handleShow}>Transfer
-                </Button>
+            </Button>
             </Col>
           </Row>
         </ListGroup.Item>
-        <Token address={data}/>
-          {data.map((el) => (
-            <ListGroup.Item as="li">
+        {data.map((el) => (
+          <ListGroup.Item as="li">
             <Row>
               <Col xs={8} sm={5}>{el.token_name}</Col>
-              <Col xs={4} sm={3}>{}</Col>
+              <Col xs={4} sm={3}>{KIP7bal}</Col>
               <Col xs={4} sm={2}>{el.token_price}</Col>
               <Col xs={4} sm={1}>
                 <Button variant="primary" onClick={handleShow}>Transfer
                 </Button>
               </Col>
             </Row>
-            </ListGroup.Item>
-          ))
-          }
-        
+          </ListGroup.Item>
+        ))
+        }
+
       </ListGroup>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
