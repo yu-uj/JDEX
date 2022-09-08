@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Home, MyToken, Swap, Staking, DashBoard, NotFound } from './pages'
+import { Home, MyToken, Swap, Staking, DashBoard, NotFound, Transfer } from './pages'
 import { Navigation } from './components'
 import { Single, Pair } from './components/staking'
 import './assets/css/App.css';
@@ -20,6 +20,8 @@ function App() {
 
           <Route path="/staking/single" element={<Single />} />
           <Route path="/staking/pair" element={<Pair />} />
+
+          <Route path="/transfer" element={<Transfer />} />
         </Routes>
       </BrowserRouter>
     </div>

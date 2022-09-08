@@ -41,6 +41,8 @@ function Navigation() {
 							<NavDropdown.Item as={Link} to="/staking/pair">Pair</NavDropdown.Item>
 						</NavDropdown>
 						<Nav.Link as={Link} to="/dashboard">DashBoard</Nav.Link>
+
+						<Nav.Link as={Link} to="/transfer">Transfer</Nav.Link>
 						<CounterContainer />
 					</Nav>
 				</Container>
