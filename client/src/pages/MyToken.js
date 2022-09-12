@@ -90,7 +90,7 @@ function MyToken() {
   const data = Token_List(TokenList);
 
   const handleInput1 = (e) => { setToAddress(e.target.value); };
-  const handleInput2 = (e) => { setAmount(e.target.value) };
+  const handleInput2 = (e) => { setAmount(e.target.value); };
 
   useEffect(() => {
     const klaybalance = async () => {
