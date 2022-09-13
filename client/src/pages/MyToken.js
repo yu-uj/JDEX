@@ -5,7 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useSelector } from 'react-redux';
-import Token from '../components/mytoken/token'
+// import Token from '../components/mytoken/token'
+import { Token,Transfer } from '../components/mytoken'
 
 const Caver = require('caver-js');
 const caver = new Caver(new Caver.providers.WebsocketProvider("wss://public-node-api.klaytnapi.com/v1/baobab/ws"));
@@ -23,7 +24,7 @@ function MyToken() {
   let Amount = amount // amount * token_decimal,
   const address = useSelector(state => state.counter);
   // console.log(address.number);
-  const [balance, setbalance] = useState("");
+  const [balance, setbalance] = useState(""); // 연결된 지갑 klay 양
   const [KIP7bal, setKIP7bal] = useState("");
 
   const dummydata = {
@@ -38,19 +39,20 @@ function MyToken() {
       token_amount: Amount
     }
     console.log(req_body);
+    <Transfer />
     // 서버로 토큰 transfer하는 요청 전송
-    axios.post(`http://localhost:4000/mytoken/token_transfer`, req_body)
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          window.alert("토큰 전송 완료!");
-          window.location.reload();
-        }
-        else {
-          window.alert("토큰 전송 실패!");
-          window.location.reload();
-        }
-      })
+    // axios.post(`http://localhost:4000/mytoken/token_transfer`, req_body)
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.status === 200) {
+    //       window.alert("토큰 전송 완료!");
+    //       window.location.reload();
+    //     }
+    //     else {
+    //       window.alert("토큰 전송 실패!");
+    //       window.location.reload();
+    //     }
+    //   })
     setShow(false); // 모달 창 닫기
   }
 
