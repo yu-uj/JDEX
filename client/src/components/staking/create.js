@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form, Tab, Tabs } from 'react-bootstrap';
+import axios from 'axios';
 
 function Create() {
 
     const [key, setKey] = useState('klay');
-
     const [create, setCreate] = useState(false);
 
 	const handleCreate = () => setCreate(true);
 	const createClose = () => setCreate(false);
+
+    const [klayPairs, setKlayPairs] = useState([]);
+
+    // useEffect(async () => {
+    //     try {
+    //         const res = await axios.post(`http://localhost:4000/staking/create_klaypool/`);
+    //         setKlayPairs(res.data);
+    //         console.log(setKlayPairs);
+    //     } catch(error) {
+    //         console.log(error)
+    //     }
+    // })
+
+    
 
     return (
         <div className="createbtn">
@@ -48,7 +62,7 @@ function Create() {
                                     <Form.Label>Select Token1</Form.Label>
                                     <Form.Select >
                                     {/* 토큰 종류 추가시 등록 */}
-                                    <option>토큰1</option>
+                                    {/* <option>{klayPair.pair_name}</option> */}
                                     <option>토큰2</option>
                                     <option>[다른토큰들]</option>
                                     </Form.Select>

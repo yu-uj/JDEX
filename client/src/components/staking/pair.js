@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { Card, Row, Col, Button, Modal, Form, InputGroup } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Card, Row, Col, Button, Modal, Form, InputGroup, Tab, Tabs } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 import Create from "./create";
 
 function Pair() {
     const [depo, setDeposit] = useState(false);
     const [widr, setWithdraw] = useState(false);
-    // const [show, setShow] = useState(false);
 
     const depositShow = () => setDeposit(true);
 	const depositClose = () => setDeposit(false);
@@ -13,8 +14,54 @@ function Pair() {
     const withdrawShow = () => setWithdraw(true);
 	const withdrawClose = () => setWithdraw(false);
 
-    // const handleShow = () => setShow(true);
-	// const handleClose = () => setShow(false);
+    const dummydata = {
+        token_address: '0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1'
+    }
+
+    // 페어풀 조회
+    // klay pair
+
+    const [tokendata, settokendata] = useState([{ token_address: '0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1' }]);
+    const [KlayPool, setKlayPool] = useState([dummydata]);
+    const getKlayPool = async () => {
+        await axios.get(`http://localhost:4000/staking/klaypool/`)
+        .then((res) => {
+            // console.log(res);
+            setKlayPool(() => {
+            return res.data['data']
+            })
+        })
+    };
+
+    useEffect(() => {
+        getKlayPool();
+    }, []);
+
+    const Klay_Pool = (list) => {
+        let arr = [];
+        for (let i = 0; i < list.length; i++) {
+          let el = list[i];
+            // console.log(el.token_address)
+          let obj = {
+            pair_name: el.pair_name,
+            pair_address: el.pair_address,
+
+            token_symbol: el.token_symbol,
+            token_amount: '토큰 수량',
+            token_price: "가격",
+          }
+          arr.push(obj);
+        }
+        // return arr;
+        // setSingleData(arr);
+        settokendata(arr);
+    }
+    useEffect(() => {
+        Klay_Pool(KlayPool);
+    }, [KlayPool])
+
+    // kip7 pair
+
       
     return (
         <div>
@@ -40,7 +87,6 @@ function Pair() {
                     <Card.Footer>
                         <>
                             <Button variant="primary" onClick={depositShow} >Deposit</Button>
-                            {/* <Button variant="primary" onClick={withdrawShow}>Withdraw</Button> */}
                             <Modal
                                 size="lg"
                                 show={depo}
