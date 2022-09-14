@@ -5,12 +5,13 @@ import axios from 'axios';
 import Create from "./create";
 import KlayPair from './klaypair';
 import Kip7Pair from './kip7pair';
+import '../../assets/css/Staking.css';
 
 function Pair() {
     const [key, setKey] = useState('all');
 
     return (
-        <div>
+        <div className='Pool'>
             <Tabs
             id="controlled-tab-example"
             activeKey={key}

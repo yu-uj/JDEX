@@ -1,0 +1,16 @@
+.Pool {
+
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.btn {
+    margin: 5px;
+}
+
+.cbtn {
+    width: 50rem;
+    margin: 0px;
+}

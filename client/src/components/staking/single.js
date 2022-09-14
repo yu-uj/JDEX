@@ -3,7 +3,7 @@ import { Card, Row, Col, Button, Modal, Form, InputGroup } from 'react-bootstrap
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Create from "./create";
-// import ListGroup from 'react-bootstrap/ListGroup';
+import '../../assets/css/Staking.css';
 
 // const Caver = require('caver-js');
 // const caver = new Caver(new Caver.providers.WebsocketProvider("wss://public-node-api.klaytnapi.com/v1/baobab/ws"));
@@ -69,7 +69,7 @@ function Single() {
     // console.log(el.token_name);
       
     return (
-        <div>
+        <div className='Pool'>
             <h1>Single Pool List</h1>
             <Row xs={1} md={1} className="g-4">
             {Array.from({ length: 5 }).map((_, idx) => (

@@ -50,7 +50,7 @@ function Create() {
     return (
         <div className="createbtn">
             <div className="d-grid gap-2">
-                <Button variant="primary" size="lg" onClick={handleCreate}>
+                <Button className="cbtn" variant="primary" onClick={handleCreate}>
                     Create New Pool
                 </Button>
                 <Modal
