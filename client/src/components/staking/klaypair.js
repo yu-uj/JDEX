@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Button, Modal, Form, InputGroup } from 'react-bootstrap';
+import { Card, Row, Col, Button, Modal, Form, InputGroup, Tab, Tabs } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import Create from "./create";
-// import ListGroup from 'react-bootstrap/ListGroup';
 
-// const Caver = require('caver-js');
-// const caver = new Caver(new Caver.providers.WebsocketProvider("wss://public-node-api.klaytnapi.com/v1/baobab/ws"));
-// const KIP7ABI = require('../../contract/build/contracts/KIP7.json');
+function KlayPair() {
 
-function Single() {
     const [depo, setDeposit] = useState(false);
     const [widr, setWithdraw] = useState(false);
 
@@ -23,58 +18,52 @@ function Single() {
         token_address: '0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1'
     }
 
-    // 싱글풀 조회
-    // const [SingleData, setSingleData] = useState([{ token_address: '0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1' }])
-    const [tokendata, settokendata] = useState([{ token_address: '0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1' }]);
-    const [SinglePool, setSinglePool] = useState([dummydata]);
-    const getSinglePool = async () => {
-        await axios.get(`http://localhost:4000/staking/singlepool/`)
+    // 페어풀 조회
+    // klay pair
+
+    const [KlayData, setKlayData] = useState([{ token_address: '0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1' }]);
+    const [KlayPool, setKlayPool] = useState([dummydata]);
+    const getKlayPool = async () => {
+        await axios.get(`http://localhost:4000/staking/klaypool/`)
         .then((res) => {
-            // console.log(res);
-            setSinglePool(() => {
+            setKlayPool(() => {
             return res.data['data']
             })
         })
     };
+    // console.log(KlayPool);
 
     useEffect(() => {
-        getSinglePool();
+        getKlayPool();
     }, []);
-    // console.log(SinglePool);
 
-    const Single_Pool = (list) => {
+    const Klay_Pool = (list) => {
         let arr = [];
         for (let i = 0; i < list.length; i++) {
           let el = list[i];
             // console.log(el.token_address)
           let obj = {
-            token_name: el.token_name,
-            token_address: el.token_address, 
-            token_symbol: el.token_symbol,
+            pair_name: el.pair_name,
+            pair_address: el.pair_address,
+            token_address: el.token_address,
             token_amount: '토큰 수량',
             token_price: "가격",
           }
           arr.push(obj);
         }
-        // return arr;
-        // setSingleData(arr);
-        settokendata(arr);
+        setKlayData(arr);
     }
     useEffect(() => {
-        Single_Pool(SinglePool);
-    }, [SinglePool])
-    // const data = Single_Pool(SinglePool);
-    // console.log(Single_Pool(SinglePool));
-    // console.log(data[0].token_name);
-    // console.log(el.token_name);
+        Klay_Pool(KlayPool);
+    }, [KlayPool])
       
     return (
         <div>
-            <h1>Single Pool List</h1>
+            <br/>
             <Row xs={1} md={1} className="g-4">
             {Array.from({ length: 5 }).map((_, idx) => (
                 <Col>
-                {tokendata.map((el) => (
+                {KlayData.map((el) => (
                 <Card
                 bg={'Secondary'}
                 key={'Secondary'}
@@ -84,10 +73,7 @@ function Single() {
                 className="mb-2" 
                 >
                     <Card.Body>
-                    <Card.Title>{el.token_name}</Card.Title>
-                    {/* {data.map(el => (
-                        <Card.Title>{single.token_name}</Card.Title>
-                    ))} */}
+                    <Card.Title>{el.pair_name}</Card.Title>
                     <Card.Text>
                         <p>총 예치규모</p>
                         <p>내 보유량</p>
@@ -106,13 +92,13 @@ function Single() {
                             >
                                 <Modal.Header closeButton>
                                 {/* 선택한 카드의 풀 이름과 맵핑 */}
-                                <Modal.Title>{el.token_name} Deposit</Modal.Title>
+                                <Modal.Title>{el.pair_name} Deposit</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                     <div>  
                                         <h5>내 예치 자산</h5>
                                         <strong>0{/*[예치한토큰갯수]*/}</strong>
-                                        <span>{el.token_symbol}</span>
+                                        <span>{/*[토큰심볼]*/}</span>
                                         <br/>
                                         <br/>                         
                                         <h5>내 지분</h5>
@@ -124,16 +110,29 @@ function Single() {
                                     <Form>
                                         {/* Deposit Input  */}
                                         {/* 토큰 이름, 심볼, 매핑 필요  */}
-                                        <Form.Label>{el.token_name}</Form.Label> 
+                                        <Form.Label>KALY</Form.Label>
                                         <InputGroup className="mb-3">
                                             <Form.Control 
                                                 type="text"
-                                                placeholder="예치할 토큰 수량"
+                                                placeholder="예치할 KLAY 수량"
                                                 autoFocus
                                                 aria-label="Default"
                                                 aria-describedby="inputGroup-sizing-default"
                                             />
-                                            <InputGroup.Text id="inputGroup-sizing-default">KLAY{el.token_symbol}</InputGroup.Text>
+                                            <InputGroup.Text id="inputGroup-sizing-default">KLAY</InputGroup.Text>
+                                        </InputGroup>
+
+                                        <Form.Label>Token2 Name</Form.Label> 
+                                        <p>address: {el.token_address}</p>
+                                        <InputGroup className="mb-3">
+                                            <Form.Control 
+                                                type="text"
+                                                placeholder="예치할 토큰2 수량"
+                                                autoFocus
+                                                aria-label="Default"
+                                                aria-describedby="inputGroup-sizing-default"
+                                            />
+                                            <InputGroup.Text id="inputGroup-sizing-default">KLAY[토큰2심볼]</InputGroup.Text>
                                         </InputGroup>
                                     </Form>
                                 </Modal.Body>
@@ -156,13 +155,13 @@ function Single() {
                             >
                                 <Modal.Header closeButton>
                                 {/* 선택한 카드의 풀 이름과 맵핑 */}
-                                <Modal.Title>{el.token_name} Withdraw</Modal.Title>
+                                <Modal.Title>{el.pair_name} Withdraw</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                     <div>  
                                         <h5>내 예치 자산</h5>
                                         <strong>0{/*[예치한토큰갯수]*/}</strong>
-                                        <span>{el.token_symbol}</span>
+                                        <span>{/*[토큰심볼]*/}</span>
                                         <br/>
                                         <br/>                         
                                         <h5>내 지분</h5>
@@ -174,20 +173,20 @@ function Single() {
                                     <Form>
                                         {/* Withdraw Input  */}
                                         {/* 토큰 이름, 심볼, 매핑 필요  */}
-                                        <Form.Label>{el.token_name}</Form.Label> 
+                                        <Form.Label>Token1 Name</Form.Label> 
                                         <InputGroup className="mb-3">
                                             <Form.Control 
                                                 type="text"
-                                                placeholder="출금할 토큰 수량"
+                                                placeholder="출금할 토큰1 수량"
                                                 autoFocus
                                                 aria-label="Default"
                                                 aria-describedby="inputGroup-sizing-default"
                                             />
-                                            <InputGroup.Text id="inputGroup-sizing-default">KLAY{el.token_symbol}</InputGroup.Text>
+                                            <InputGroup.Text id="inputGroup-sizing-default">KLAY[토큰1심볼]</InputGroup.Text>
                                         </InputGroup>
+
                                     </Form>
                                 </Modal.Body>
-
                                 <Modal.Footer>
                                 <Button variant="secondary" onClick={withdrawClose}>
                                     취소
@@ -199,15 +198,11 @@ function Single() {
                     </Card.Footer>
                 </Card>
                 ))}
-                
                 </Col>
             ))}
             </Row>
-
-            <Create />
-
         </div>
     );
 }
   
-export default Single;
+export default KlayPair;

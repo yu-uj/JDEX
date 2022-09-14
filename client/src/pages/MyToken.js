@@ -76,7 +76,7 @@ function MyToken() {
       // const KIP7Contract = new caver.klay.Contract(KIP7ABI, el.token_address);
       // let bal = await KIP7Contract.methods.balanceOf(address.number).call();
       // let a = await caver.utils.fromPeb(bal, "KLAY");
-      console.log(el.token_address)
+      
       let obj = {
         token_name: el.token_name,
         token_amount: "balanceOf로 불러오기",
