@@ -1,8 +1,6 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { useSelector } from 'react-redux'
-import { Card, Row, Col, Button, Modal, Form } from 'react-bootstrap';
-import { Route } from 'react-router-dom';
+// import { Route } from 'react-router-dom';
 import { Pool, Single, Pair, Create } from '../components/staking'
 import '../assets/css/Staking.css';
 
