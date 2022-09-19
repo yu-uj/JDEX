@@ -1,0 +1,79 @@
+.box-model {
+
+  width: 600px;
+  margin: 0 auto; /* 페이지 중앙 정렬 */
+  margin-top: 4rem;
+  border: 1.5rem solid #ECEEF7;
+
+}
+
+.title {
+
+  font-size: 1rem;
+  background: #ECEEF7;
+  color: black;
+  font-size: 25px;
+  line-height: 50px;
+  text-align: left;
+
+}
+
+.former-wrapper{
+
+  min-height: 2.5rem;
+  background: #ECEEF7;
+  text-align: left;
+
+}
+
+.form-wrapper {
+
+  background: white;
+  min-height: 10rem;
+  border: 10px solid #ECEEF7;
+  text-align: justify;
+
+}
+
+.todoo-wrapper {
+  min-height: 3rem;
+  background: #ECEEF7;
+  padding: 20px 0;
+}
+
+.todo-wrapper {
+  min-height: 1rem;
+  background: #ECEEF7;
+  text-align: left;
+
+}
+
+.todos-wrapper {
+
+  background: white;
+  min-height: 10rem;
+  border: 10px solid #ECEEF7;
+  text-align: justify;
+}
+
+.button-wrapper {
+
+  min-height: 2.8rem;
+  border: 5px solid #ECEEF7;
+}
+
+.todos-wrap {
+  padding: 20px;
+
+}
+.form-wrap {
+  padding: 20px;
+
+}
+.number {
+ text-align: right;
+ border: 0px;
+}
+.about {
+ text-align: right;
+}
