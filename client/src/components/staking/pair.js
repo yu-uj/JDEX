@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Button, Modal, Form, InputGroup, Tab, Tabs } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { Tab, Tabs } from 'react-bootstrap';
+// import { useSelector } from 'react-redux';
+// import axios from 'axios';
 import Create from "./create";
 import KlayPair from './klaypair';
 import Kip7Pair from './kip7pair';
