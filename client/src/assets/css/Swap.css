@@ -1,8 +1,7 @@
 .box-model {
 
   width: 600px;
-  margin: 0 auto;
-  /* 페이지 중앙 정렬 */
+  margin: 0 auto; /* 페이지 중앙 정렬 */
   margin-top: 4rem;
   border: 1.5rem solid #ECEEF7;
 
@@ -19,9 +18,7 @@
 
 }
 
-
-
-.former-wrapper {
+.former-wrapper{
 
   min-height: 2.5rem;
   background: #ECEEF7;
@@ -69,17 +66,14 @@
   padding: 20px;
 
 }
-
 .form-wrap {
   padding: 20px;
 
 }
-
 .number {
-  text-align: right;
-  border: 0px;
+ text-align: right;
+ border: 0px;
 }
-
 .about {
-  text-align: right;
+ text-align: right;
 }

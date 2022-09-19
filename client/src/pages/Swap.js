@@ -9,8 +9,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 
 
-
-
 const Swap = ({form, former, children, todo, todoo, teacher}) => {
   const [show, setShow] = useState(false);
 	const [create, setCreate] = useState(false);
@@ -22,7 +20,7 @@ const Swap = ({form, former, children, todo, todoo, teacher}) => {
 	const createClose = () => setCreate(false);
 
   return (
-<main className="box-model">
+    <main className="box-model">
     
       <div className="title">
         스왑
