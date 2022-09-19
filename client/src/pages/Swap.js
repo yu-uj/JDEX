@@ -9,8 +9,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 
 
-
-
 const Swap = ({form, former, children, todo, todoo, teacher}) => {
   const [show, setShow] = useState(false);
 	const [create, setCreate] = useState(false);
@@ -21,6 +19,19 @@ const Swap = ({form, former, children, todo, todoo, teacher}) => {
 	const handleCreate = () => setCreate(true);
 	const createClose = () => setCreate(false);
 
+<<<<<<< HEAD
+const Swap = ({form, former, children, todo, todoo, teacher}) => {
+  const [show, setShow] = useState(false);
+	const [create, setCreate] = useState(false);
+
+  	const handleClose = () => setShow(false);
+  	const handleShow = () => setShow(true); 
+	
+	const handleCreate = () => setCreate(true);
+	const createClose = () => setCreate(false);
+
+=======
+>>>>>>> 11ee7fa911b95678672261a929cbacfc9796f6f1
   return (
     <main className="box-model">
     
