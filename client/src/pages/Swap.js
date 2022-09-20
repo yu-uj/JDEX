@@ -2,13 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import '../assets/css/Swap.css';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Modal from 'react-bootstrap/Modal';
+import { Button, Container, Row, Col, Form, ButtonGroup, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 const Caver = require('caver-js');
