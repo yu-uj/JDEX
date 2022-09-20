@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 // import { useSelector } from 'react-redux'
 // import { Route } from 'react-router-dom';
-import { Pool, Single, Pair, Create } from '../components/staking'
+import { Single, Pair, Create } from '../components/staking'
 import '../assets/css/Staking.css';
 
 function Staking () {
