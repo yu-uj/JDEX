@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 const Caver = require('caver-js');
 const caver = new Caver(new Caver.providers.WebsocketProvider("wss://public-node-api.klaytnapi.com/v1/baobab/ws"));
-const KIP7ABI = require('../build/contracts/KIP7.json');
+const KIP7ABI = require('../contract/KIP7.json');
 
 function MyToken() {
   // 수정
