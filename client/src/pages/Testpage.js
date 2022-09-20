@@ -31,6 +31,9 @@ const Testpage = ({ form, former, children, todo, todoo, teacher }) => {
 
     const [amount, setAmount] = useState("");
 
+    const [tokenAmount1, setTokenAmount1] = useState("");
+    const [tokenAmount2, setTokenAmount2] = useState("");
+    
     const handleInput = (e) => {
         setAmount(e.target.value);
     };
@@ -58,6 +61,20 @@ const Testpage = ({ form, former, children, todo, todoo, teacher }) => {
     const dummydata = {
         token_address: "0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1",
     };
+
+    const getToken1 = async () => {
+    const kip7 = new caver.klay.KIP7(tokenAddress1);
+    const Tokenbalance1 = await kip7.balanceOf(address.number); // 내 주소가 갖고 있는 그 토큰의 잔액
+    console.log(caver.utils.fromPeb(Tokenbalance1));
+    setTokenAmount1(caver.utils.fromPeb(Tokenbalance1)) //-> 예시로 usestate사용해 토큰 잔액 넣고 불러와서 사용하면 될듯 
+    }
+
+    const getToken2 = async () => {
+    const kip7 = new caver.klay.KIP7(tokenAddress2);
+    const Tokenbalance2 = await kip7.balanceOf(address.number); // 내 주소가 갖고 있는 그 토큰의 잔액
+    console.log(caver.utils.fromPeb(Tokenbalance2));
+    setTokenAmount2(caver.utils.fromPeb(Tokenbalance2)) //-> 예시로 usestate사용해 토큰 잔액 넣고 불러와서 사용하면 될듯 
+    }
 
     const swap = async () => {
         const DexRouterabi = require("../contract/router.json");
@@ -140,6 +157,14 @@ const Testpage = ({ form, former, children, todo, todoo, teacher }) => {
     useEffect(() => {
         Swap_Token(SwapToken);
     }, [SwapToken]);
+
+    useEffect(() => {
+        getToken1();
+    }, [tokenAddress1])
+
+    useEffect(() => {
+        getToken2();
+    }, [tokenAddress2])
 
     const options1 = swapData.map((el) => {
         return (
@@ -266,7 +291,7 @@ const Testpage = ({ form, former, children, todo, todoo, teacher }) => {
                     <Row>
                         <Col sm={4}>잔액 </Col>
                         <Col className="about" sm={8}>
-                            약$0.0000
+                            {tokenAmount1}
                         </Col>
                     </Row>
                 </Container>
@@ -380,9 +405,9 @@ const Testpage = ({ form, former, children, todo, todoo, teacher }) => {
                     </p>
 
                     <Row>
-                        <Col sm={4}>잔액0.0000</Col>
+                        <Col sm={4}>잔액</Col>
                         <Col className="about" sm={8}>
-                            약$0.0000
+                            {tokenAmount2}
                         </Col>
                     </Row>
                 </Container>
@@ -393,7 +418,7 @@ const Testpage = ({ form, former, children, todo, todoo, teacher }) => {
                 <div className="d-grid gap-2">
                     <Button variant="primary" size="lg" onClick={swap}>
                         Swap
-                    </Button>
+                    </Button> 
                 </div>
             </section>
         </main>
