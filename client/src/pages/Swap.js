@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import '../assets/css/Swap.css';
 import { Modal, Button, Container, Row, Col, Form, ButtonGroup } from 'react-bootstrap';
 
+
 const Caver = require('caver-js');
 const caver = new Caver(new Caver.providers.WebsocketProvider("wss://public-node-api.klaytnapi.com/v1/baobab/ws"));
 const KIP7ABI = require('../build/contracts/KIP7.json');
@@ -116,52 +117,31 @@ const Swap = ({form, former, children, todo, todoo, teacher}) => {
       <section className="form-wrapper">
         {form}    
         <Container className="form-wrap">
-            <p>
+           
           <Row>
             <Col sm={4}>
             <>
-          <Button variant="primary" onClick={handleCreate}>
-            토큰
-          </Button>
-          
-            <Modal show={create} onHide={createClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>제공</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
-                <p><Form.Label>Token Select</Form.Label></p>
-                <Form.Select onChange={handleSwap1} value={choice1}>
-                  {options1}
-                </Form.Select>
-                </Form.Group>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={createClose}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={createClose}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal>
-          
-          </>
-          </Col>
-            <Col className="about" sm={8}>
-              <h3><input className="number" onKeyPress={(event) => {
-                if (!/[0-9]/.test(event.key)) {
-                event.preventDefault();
-                }
+            <Form>
+              <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+              <strong><Form.Label>Token Select</Form.Label></strong>
+              <Form.Select onChange={handleSwap1} value={choice1}>
+                {options1}
+              </Form.Select>
+              </Form.Group>
+            </Form>
+            </>
+            </Col>
+          <Col className="about" sm={8}>
+            <h3><input className="number" placeholder="토큰 수량" onKeyPress={(event) => {
+              if (!/[0-9]/.test(event.key)) {
+              event.preventDefault();
+              }
               }}
               /></h3>
-              <h3>{choice1}</h3>
             </Col>
           </Row>
-          </p>
           
+          <br/>
           <Row>
             <Col sm={4}>잔액 </Col>
             <Col className="about" sm={8}>약$0.0000</Col>
