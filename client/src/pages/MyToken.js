@@ -48,7 +48,7 @@ function MyToken() {
         from: window.klaytn.selectedAddress,
         gas: 8000000
       });
-    console.log(transfer);
+    // console.log(transfer);
     setShow(false); // 모달 창 닫기
   }
   const handleTransfer1 = () => {

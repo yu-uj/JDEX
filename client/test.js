@@ -2,7 +2,8 @@ const Caver = require('caver-js');
 // const caver = new Caver(new Caver.providers.WebsocketProvider("https://public-node-api.klaytnapi.com/v1/baobab"));
 const caver = new Caver(new Caver.providers.WebsocketProvider("wss://public-node-api.klaytnapi.com/v1/baobab/ws"));
 
-const DexFactoryabi = require('./b');
+
+const DexFactoryabi = require('./build/contracts/factory.json')
 const DexRouterabi = require('./build/contracts/router.json');
 const DexPairabi = require('./build/contracts/pair.json');
 const KIP7abi = require('./build/contracts/KIP7.json');

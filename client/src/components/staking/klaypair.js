@@ -8,10 +8,18 @@ function KlayPair() {
     const [depo, setDeposit] = useState(false);
     const [widr, setWithdraw] = useState(false);
 
-    const depositShow = () => setDeposit(true);
+    const [selectPair, setSelectPair] = useState([]);
+
+    const depositShow = (el) => {
+        setSelectPair(el);
+        setDeposit(true);
+    }
 	const depositClose = () => setDeposit(false);
 
-    const withdrawShow = () => setWithdraw(true);
+    const withdrawShow = (el) => {
+        setSelectPair(el);
+        setWithdraw(true);
+    }
 	const withdrawClose = () => setWithdraw(false);
 
     const dummydata = {
@@ -61,7 +69,7 @@ function KlayPair() {
         <div>
             <br/>
             <Row xs={1} md={1} className="g-4">
-            {Array.from({ length: 5 }).map((_, idx) => (
+            {Array.from({ length: 1 }).map((_, idx) => (
                 <Col>
                 {KlayData.map((el) => (
                 <Card
@@ -81,7 +89,7 @@ function KlayPair() {
                     </Card.Body>
                     <Card.Footer>
                         <>
-                            <Button variant="primary" onClick={depositShow} >Deposit</Button>
+                            <Button variant="primary" onClick={() => depositShow(el)} >Deposit</Button>
                             <Modal
                                 size="lg"
                                 show={depo}
@@ -92,7 +100,7 @@ function KlayPair() {
                             >
                                 <Modal.Header closeButton>
                                 {/* 선택한 카드의 풀 이름과 맵핑 */}
-                                <Modal.Title>{el.pair_name} Deposit</Modal.Title>
+                                <Modal.Title>{selectPair.pair_name} Deposit</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                     <div>  
@@ -123,7 +131,7 @@ function KlayPair() {
                                         </InputGroup>
 
                                         <Form.Label>Token2 Name</Form.Label> 
-                                        <p>address: {el.token_address}</p>
+                                        <p>address: {selectPair.token_address}</p>
                                         <InputGroup className="mb-3">
                                             <Form.Control 
                                                 type="text"
@@ -144,7 +152,7 @@ function KlayPair() {
                                 </Modal.Footer>
                             </Modal>
 
-                            <Button variant="primary" onClick={withdrawShow}>Withdraw</Button>
+                            <Button variant="primary" onClick={() => withdrawShow(el)}>Withdraw</Button>
                             <Modal
                                 size="lg"
                                 show={widr}
@@ -155,7 +163,7 @@ function KlayPair() {
                             >
                                 <Modal.Header closeButton>
                                 {/* 선택한 카드의 풀 이름과 맵핑 */}
-                                <Modal.Title>{el.pair_name} Withdraw</Modal.Title>
+                                <Modal.Title>{selectPair.pair_name} Withdraw</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                     <div>  
@@ -173,7 +181,8 @@ function KlayPair() {
                                     <Form>
                                         {/* Withdraw Input  */}
                                         {/* 토큰 이름, 심볼, 매핑 필요  */}
-                                        <Form.Label>Token1 Name</Form.Label> 
+                                        <Form.Label>{selectPair.pair_name}</Form.Label> 
+                                        <p>address: {selectPair.pair_address}</p>
                                         <InputGroup className="mb-3">
                                             <Form.Control 
                                                 type="text"
