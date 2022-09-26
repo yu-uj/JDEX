@@ -76,6 +76,8 @@ function Kip7Pair() {
 		for (let i = 0; i < list.length; i++) {
 			let el = list[i];
         let depositedValue = await FarmingContract.methods.userInfo(el.pid, address.number).call();
+		let totalStaked = await FarmingContract.methods.poolInfo(el.pid).call();
+
 			let obj = {
 				pair_name: el.pair_name,
 				pair_address: el.pair_address,
@@ -85,6 +87,7 @@ function Kip7Pair() {
 				token_price: "가격",
                 pid: el.pid,
 	            depositedValue: caver.utils.fromPeb(depositedValue[0]),
+				totalStaked: caver.utils.fromPeb(totalStaked[3]),
 			}
 			arr.push(obj);
 		}
@@ -194,8 +197,9 @@ function Kip7Pair() {
 								<Card.Body>
 									<Card.Title>{el.pair_name}</Card.Title>
 									<Card.Text>
-										<p>총 예치규모</p>
-										<p>내 보유량<br />
+										<p>총 예치규모<br />
+										<span>{el.totalStaked}</span></p>
+										<p>나의 예치한 양<br />
                                         <span key={el.pid}>{el.depositedValue} {el.pair_name}</span>
                                         </p>
 									</Card.Text>
