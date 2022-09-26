@@ -115,13 +115,21 @@ function Kip7Pair() {
                     gas: 50000000,
                 }
             )
-        let depositAmount = parseInt(addliquidity.events[4].raw.data);
+        let depositAmount = caver.utils.toBN((addliquidity.events[4].raw.data));
+
+		const kip7pair = new caver.klay.KIP7(selectPair.pair_address);
+        const allowed = await kip7pair.allowance(address.number, farmingAddress);
+        if (allowed <= depositAmount) {
+            const approve = await kip7pair.approve(farmingAddress, caver.utils.toPeb(10000000000000, "KLAY"), {
+                from: address.number,
+            });
+        }
         // deposit을 지금 liquidity한 만큼 lp토큰을 넣어줘야하는데, addliquidity가 실행되었을 때 그 안의 값인 liquidity를 호출하는 방법?
         // event decodelog사용하는데 일단 트랜잭션 찍어봣을때 5번째 배열에담기는 값이 lp liquidity여서 임시로 사용
         // 아니면 liquidity했을때 받을 lp토큰 balance를 호출하는 방법
         // deposit(_pid, _amount) _pid는 DB에서 호출, _amount는 addliquidity했을때 받을 lp토큰을 호출해주면 될듯
         // pid도 귀찮으니까 일단 blockchain에서 호출해보자
-        let deposit = await FarmingContract.methods.deposit(selectPair.pid, caver.utils.toBN(depositAmount)).send(
+        let deposit = await FarmingContract.methods.deposit(selectPair.pid, depositAmount).send(
             {
                     from : address.number,
                     gas: 50000000,

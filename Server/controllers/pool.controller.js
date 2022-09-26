@@ -25,7 +25,8 @@ module.exports = {
             const klaypoolData = {
                 pair_address : req.body.pair_address,
                 pair_name : req.body.pair_name,
-                token_address : req.body.token_address
+                token_address : req.body.token_address,
+                pid : req.body.pid
             }
             const klaypool = await new klaypairmodel(klaypoolData).saveKlaypair();
 
