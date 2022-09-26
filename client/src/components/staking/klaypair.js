@@ -12,7 +12,7 @@ const wklayabi = require('../../contract/wklay.json');
 
 const farmingAddress = '0x3E62CB2A987F0Dc750541f092bA46EbF08020648';
 const RouterAddress = '0x63e3cB8C959068DD947c3FadF7455044B5C36b8f';
-const wklayAddress = '0xfCd11e485Fc0f7CCd31933E3BA1544488F13e5E1';
+const wklayAddress = '0xfCd11e485Fc0f7CCd31933E3BA1544488F13e5E1'; 
 
 const FarmingContract = new caver.klay.Contract(Farmingabi, farmingAddress);
 const DexRouterContract = new caver.klay.Contract(DexRouterabi, RouterAddress);
@@ -146,7 +146,7 @@ function KlayPair() {
     }
     useEffect(() => {
 		DepositedAmount();
-	}, [selectPair, depositedAmount])
+	}, [selectPair, depositedAmount, KlayPool])
 
     const Withdraw = async () => {
         let withdraw = await FarmingContract.methods.withdraw(selectPair.pid, caver.utils.toBN(WithdrawAmount)).send(
@@ -171,7 +171,6 @@ function KlayPair() {
         )
         setWithdraw(false)
     }
-    console.log(KlayData);
     return (
         <div>
             <br/>

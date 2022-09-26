@@ -42,20 +42,20 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
     console.log(amount);
 
     const DexRouterabi = require('../contract/router.json');
-    const RouterAddress = '0xE4a8Df9029030926a5cd1E5851A0Bfd609660C2c';
+    const RouterAddress = '0x63e3cB8C959068DD947c3FadF7455044B5C36b8f';
 
     const DexRouterContract = new caver.klay.Contract(DexRouterabi, RouterAddress);
 
-    const a = await DexRouterContract.methods.getAmountsOut(e.target.value, [
+    const a = await DexRouterContract.methods.getAmountsOut(caver.utils.toPeb(e.target.value, "KLAY"), [
       tokenAddress1,
       tokenAddress2,
     ]).call();
 
-    setSave(a[1]);
+    setSave(caver.utils.fromPeb(a[1], "KLAY"));
 
     console.log(save);
   };
-
+ 
   const handleCreate = () => setCreate(true);
 
   const createClose = ({ isSave }) => {
