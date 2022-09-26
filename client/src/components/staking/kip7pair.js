@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Button, Modal, Form, InputGroup, Tab, Tabs } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { Card, Row, Col, Button, Modal, Form, InputGroup } from 'react-bootstrap';
+// import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 function Kip7Pair() {

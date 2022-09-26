@@ -1,9 +1,6 @@
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, Form, Modal, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import ListGroup from 'react-bootstrap/ListGroup';
 import { useSelector } from 'react-redux';
 
 const Caver = require('caver-js');
@@ -133,7 +130,7 @@ function MyToken() {
     KIP7balance();
     Token_List(TokenList);
   }, [TokenList])
-  console.log(KIP7bal)
+  // console.log(KIP7bal)
 
 
   return (
