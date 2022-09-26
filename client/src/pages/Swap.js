@@ -175,32 +175,32 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
   }, [choice2]);
 
   return (
-    <main className="box-model">
-      <div className="title">스왑</div>
-
-      <section className="former-wrapper">
-        {former}
-        <Container>
-          <Row>
-            <Col sm={7}>제공</Col>
-            <Col sm={5}>
-              <ButtonGroup size="sm">
-                <Button>25%</Button>
-                <Button>50%</Button>
-                <Button>75%</Button>
-                <Button>최대치</Button>
-              </ButtonGroup>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-
-      <section className="form-wrapper">
-        {form}
-        <Container className="form-wrap">
-          <p>
+    <div>
+      <h1>Token Swap</h1>
+      <div className="box-model">
+        <div className="former-wrapper">
+          {former}
+          <Container>
             <Row>
-              <Col sm={4}>
+              <Col sm={6}><h5>제공</h5></Col>
+              <Col sm={6}>
+                <ButtonGroup>
+                  <Button>25%</Button>
+                  <Button>50%</Button>
+                  <Button>75%</Button>
+                  <Button>최대치</Button>
+                </ButtonGroup>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+
+        <section className="form-wrapper">
+          {form}
+          <Container className="form-wrap">
+
+            <Row>
+              <Col sm={8}>
                 <>
                   <Button variant="primary" onClick={handleCreate}>
                     토큰
@@ -219,9 +219,9 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                           className="mb-1"
                           controlId="exampleForm.ControlInput1"
                         >
-                          <p>
-                            <Form.Label>Token Select</Form.Label>
-                          </p>
+
+                          <Form.Label>Token Select</Form.Label>
+
                           <Form.Select onChange={handleSwap1} value={selected1}>
                             <option value="">---토큰 선택---</option>
                             {options1}
@@ -246,10 +246,16 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                   </Modal>
                 </>
               </Col>
-              <Col className="about" sm={8}>
+              <Col sm={4}>
+                <h3 className="about">{choice1}</h3>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="about" sm={12}>
                 <h3>
                   <input
                     className="number"
+                    placeholder="0.0000"
                     onChange={(e) => handleInput(e)}
                     onKeyPress={(event) => {
                       if (!/[0-9]/.test(event.key)) {
@@ -258,66 +264,65 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                     }}
                   />
                 </h3>
-                <h3>{choice1}</h3>
               </Col>
             </Row>
-          </p>
 
-          <Row>
-            <Col sm={4}>잔액 </Col>
-            <Col className="about" sm={8}>
-              약$0.0000
-            </Col>
-          </Row>
-        </Container>
-      </section>
 
-      <section className="todoo-wrapper">
-        {todoo}
-        <Button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="30"
-            height="30"
-            fill="currentColor"
-            className="bi bi-arrow-down-circle-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
-          </svg>
-        </Button>
-      </section>
-
-      <section className="todo-wrapper">
-        {todo}
-        <Container>
-          <Row>
-            <Col sm={8}>수령</Col>
-            <Col sm={4}>
-              <Form>
-                {["checkbox"].map((type) => (
-                  <div key={`inline-${type}`} className="mb-3">
-                    <Form.Check
-                      inline
-                      label="수수료포함"
-                      name="group1"
-                      type={type}
-                      id={`inline-${type}-1`}
-                    />
-                  </div>
-                ))}
-              </Form>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-
-      <section className="todos-wrapper">
-        {children}
-        <Container className="todos-wrap">
-          <p>
             <Row>
+              <Col sm={4}>잔액 </Col>
+              <Col className="about" sm={8}>
+                약$0.0000
+              </Col>
+            </Row>
+          </Container>
+        </section>
+
+        <section className="todoo-wrapper">
+          {todoo}
+          <Button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              className="bi bi-arrow-down-circle-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+            </svg>
+          </Button>
+        </section>
+
+        <section className="todo-wrapper">
+          {todo}
+          <Container>
+            <Row>
+              <Col sm={8}><h5>수령</h5></Col>
               <Col sm={4}>
+                <Form>
+                  {["checkbox"].map((type) => (
+                    <div key={`inline-${type}`} className="mb-3">
+                      <Form.Check
+                        inline
+                        label="수수료포함"
+                        name="group1"
+                        type={type}
+                        id={`inline-${type}-1`}
+                      />
+                    </div>
+                  ))}
+                </Form>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+
+        <section className="todos-wrapper">
+          {children}
+          <Container className="todos-wrap">
+
+            <Row>
+              <Col sm={8}>
                 <>
                   <Button variant="primary" onClick={handleShow}>
                     토큰
@@ -363,10 +368,18 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                   </Modal>
                 </>
               </Col>
-              <Col className="about" sm={8}>
+              <Col sm={4}>
+                <h3 className="about">{choice2}</h3>
+              </Col>
+
+            </Row>
+            <Row>
+
+              <Col className="about" sm={12}>
                 <h3>
                   <input
                     className="number"
+                    placeholder="0.0000"
                     onKeyPress={(event) => {
                       if (!/[0-9]/.test(event.key)) {
                         event.preventDefault();
@@ -374,29 +387,30 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                     }}
                   />
                 </h3>
-                <h3>{choice2}</h3>
               </Col>
             </Row>
-          </p>
 
-          <Row>
-            <Col sm={4}>잔액0.0000</Col>
-            <Col className="about" sm={8}>
-              약$0.0000
-            </Col>
-          </Row>
-        </Container>
-      </section>
 
-      <section className="button-wrapper">
-        {teacher}
-        <div className="d-grid gap-2">
-          <Button variant="primary" size="lg" onClick={swap}>
-            Swap
-          </Button>
-        </div>
-      </section>
-    </main>
+            <Row>
+              <Col sm={4}><h6>잔액</h6></Col>
+              <Col className="about" sm={8}>
+                약$0.0000
+              </Col>
+            </Row>
+          </Container>
+        </section>
+
+        <section className="button-wrapper">
+          {teacher}
+          <div className="d-grid gap-2">
+            <Button variant="primary" size="lg" onClick={swap}>
+              Swap
+            </Button>
+          </div>
+        </section>
+      </div>
+    </div>
+
   );
 };
 

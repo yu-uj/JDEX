@@ -1,10 +1,8 @@
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, Form, Modal, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import ListGroup from 'react-bootstrap/ListGroup';
 import { useSelector } from 'react-redux';
+import '../assets/css/Page.css';
 
 const Caver = require('caver-js');
 const caver = new Caver(new Caver.providers.WebsocketProvider("wss://public-node-api.klaytnapi.com/v1/baobab/ws"));
@@ -138,24 +136,26 @@ function MyToken() {
 
   return (
     <>
-      <div>my Token</div>
+      <div className="pageInfo">
+        <h2>My Token List</h2>
+        <p>연결된 지갑에서 내가 보유하고 있는 <b>토큰</b>정보를 확인하고, <br/> 간편하게 <b>전송</b>해보세요.</p>
+      </div>
+      <br/>
       <ListGroup as="ul">
-
-        <ListGroup.Item as="li" active>
+        <ListGroup.Item as="li" variant="secondary">
           <Row>
-            <Col xs={8} sm={5}>token_name</Col>
-            <Col xs={4} sm={3}>amount</Col>
-            <Col xs={4} sm={2}>price</Col>
-            <Col xs={4} sm={1}>transfer
-            </Col>
+            <Col xs={4} sm={3}><strong>Token name</strong></Col>
+            <Col xs={8} sm={5}><strong>Amount</strong></Col>
+            <Col xs={6} sm={2}><strong>Price</strong></Col>
+            <Col xs={2} sm={2}><strong>Transfer</strong></Col>
           </Row>
         </ListGroup.Item>
         <ListGroup.Item as="li">
           <Row>
-            <Col xs={8} sm={5}>klay</Col>
-            <Col xs={4} sm={3}>{balance}</Col>
-            <Col xs={4} sm={2}>price</Col>
-            <Col xs={4} sm={1}><Button variant="primary" onClick={handleShow1}>Transfer
+            <Col xs={4} sm={3}><strong>klay</strong></Col>
+            <Col xs={8} sm={5}>{balance}</Col>
+            <Col xs={6} sm={2}>price</Col>
+            <Col xs={2} sm={2}><Button variant="primary" onClick={handleShow1}>Transfer
             </Button>
             </Col>
           </Row>
@@ -163,10 +163,10 @@ function MyToken() {
         {tokendata.map((el) => (
           <ListGroup.Item as="li">
             <Row>
-              <Col xs={8} sm={5}>{el.token_name}</Col>
-              <Col xs={4} sm={3}>{el.token_amount}</Col>
-              <Col xs={4} sm={2}>{el.token_price}</Col>
-              <Col xs={4} sm={1}>
+              <Col xs={4} sm={3}><strong>{el.token_name}</strong></Col>
+              <Col xs={8} sm={5}>{el.token_amount}</Col>
+              <Col xs={6} sm={2}>{el.token_price}</Col>
+              <Col xs={2} sm={2}>
                 <Button variant="primary" onClick={() => handleShow(el)}>Transfer
                 </Button>
               </Col>

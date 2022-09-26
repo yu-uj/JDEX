@@ -3,7 +3,7 @@ import { Card, Row, Col, Button, Modal, Form, InputGroup } from 'react-bootstrap
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Create from "./create";
-import '../../assets/css/Staking.css';
+import '../../assets/css/Page.css';
 
 // const Caver = require('caver-js');
 // const caver = new Caver(new Caver.providers.WebsocketProvider("wss://public-node-api.klaytnapi.com/v1/baobab/ws"));
@@ -69,25 +69,25 @@ function Single() {
     // console.log(el.token_name);
       
     return (
-        <div className='Pool'>
-            <h1>Single Pool List</h1>
-            <Row xs={1} md={1} className="g-4">
-            {Array.from({ length: 5 }).map((_, idx) => (
-                <Col>
+        <div className="Pool">
+            <div className="pageInfo">
+                <h2>Single Pool List</h2>
+                <p>KLAY와 KIP7 토큰의 <b>싱글 풀</b> 목록을 확인하고, <br/> 원하는 풀에 <b>예치</b> 및 <b>출금</b> 할 수 있습니다.</p>
+            </div>
+            <br/>
+            <Row className="g-4">
+            {Array.from({ length: 1 }).map((_, idx) => (
+                <Col xs={18} md={12}>
                 {tokendata.map((el) => (
                 <Card
                 bg={'Secondary'}
                 key={'Secondary'}
                 text={'dark'}
                 border={'Secondary'}
-                style={{ width: '50rem' }}
-                className="mb-2" 
+                className="mb-4" 
                 >
                     <Card.Body>
                     <Card.Title>{el.token_name}</Card.Title>
-                    {/* {data.map(el => (
-                        <Card.Title>{single.token_name}</Card.Title>
-                    ))} */}
                     <Card.Text>
                         <p>총 예치규모</p>
                         <p>내 보유량</p>

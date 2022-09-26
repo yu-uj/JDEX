@@ -1,7 +1,7 @@
 const Home = () => {
     return (
         <div>
-            asdasd
+            JDEX
         </div>
     );
 };

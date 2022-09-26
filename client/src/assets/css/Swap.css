@@ -7,17 +7,6 @@
 
 }
 
-.title {
-
-  font-size: 1rem;
-  background: #ECEEF7;
-  color: black;
-  font-size: 25px;
-  line-height: 50px;
-  text-align: left;
-
-}
-
 .former-wrapper{
 
   min-height: 2.5rem;
@@ -30,7 +19,7 @@
 
   background: white;
   min-height: 10rem;
-  border: 10px solid #ECEEF7;
+
   text-align: justify;
 
 }
@@ -52,14 +41,14 @@
 
   background: white;
   min-height: 10rem;
-  border: 10px solid #ECEEF7;
+
   text-align: justify;
 }
 
 .button-wrapper {
 
   min-height: 2.8rem;
-  border: 5px solid #ECEEF7;
+
 }
 
 .todos-wrap {

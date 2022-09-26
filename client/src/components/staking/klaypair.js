@@ -67,18 +67,16 @@ function KlayPair() {
       
     return (
         <div>
-            <br/>
             <Row xs={1} md={1} className="g-4">
             {Array.from({ length: 1 }).map((_, idx) => (
-                <Col>
+                <Col xs={18} md={12}>
                 {KlayData.map((el) => (
                 <Card
                 bg={'Secondary'}
                 key={'Secondary'}
                 text={'dark'}
                 border={'Secondary'}
-                style={{ width: '50rem' }}
-                className="mb-2" 
+                className="mb-4" 
                 >
                     <Card.Body>
                     <Card.Title>{el.pair_name}</Card.Title>

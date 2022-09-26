@@ -1,0 +1,10 @@
+.pageInfo{
+    text-align: left;
+    font-size: 13px;
+}
+
+.pageInfoP {
+    text-align: center;
+    font-style: italic;
+    color: black;
+}
