@@ -116,7 +116,7 @@ function KlayPair() {
                                     <Form>
                                         {/* Deposit Input  */}
                                         {/* 토큰 이름, 심볼, 매핑 필요  */}
-                                        <Form.Label>KALY</Form.Label>
+                                        <Form.Label>KLAY</Form.Label>
                                         <InputGroup className="mb-3">
                                             <Form.Control 
                                                 type="text"
