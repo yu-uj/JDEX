@@ -31,8 +31,29 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
 
   const [amount, setAmount] = useState("");
 
-  const handleInput = (e) => {
+  const [tokenAmount1, setTokenAmount1] = useState("");
+  const [tokenAmount2, setTokenAmount2] = useState("");
+
+  const [save, setSave] = useState("");
+
+  const handleInput = async (e) => {
     setAmount(e.target.value);
+
+    console.log(amount);
+
+    const DexRouterabi = require('../contract/router.json');
+    const RouterAddress = '0xE4a8Df9029030926a5cd1E5851A0Bfd609660C2c';
+
+    const DexRouterContract = new caver.klay.Contract(DexRouterabi, RouterAddress);
+
+    const a = await DexRouterContract.methods.getAmountsOut(e.target.value, [
+      tokenAddress1,
+      tokenAddress2,
+    ]).call();
+
+    setSave(a[1]);
+
+    console.log(save);
   };
 
   const handleCreate = () => setCreate(true);
@@ -59,17 +80,29 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
     token_address: "0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1",
   };
 
+  const getToken1 = async () => {
+    const kip7 = new caver.klay.KIP7(tokenAddress1);
+    const Tokenbalance1 = await kip7.balanceOf(address.number); // 내 주소가 갖고 있는 그 토큰의 잔액
+    console.log(caver.utils.fromPeb(Tokenbalance1));
+    setTokenAmount1(caver.utils.fromPeb(Tokenbalance1)) //-> 예시로 usestate사용해 토큰 잔액 넣고 불러와서 사용하면 될듯 
+  }
+
+  const getToken2 = async () => {
+    const kip7 = new caver.klay.KIP7(tokenAddress2);
+    const Tokenbalance2 = await kip7.balanceOf(address.number); // 내 주소가 갖고 있는 그 토큰의 잔액
+    console.log(caver.utils.fromPeb(Tokenbalance2));
+    setTokenAmount2(caver.utils.fromPeb(Tokenbalance2)) //-> 예시로 usestate사용해 토큰 잔액 넣고 불러와서 사용하면 될듯 
+  }
+
   const swap = async () => {
     const DexRouterabi = require("../contract/router.json");
-    const RouterAddress = '0x63e3cB8C959068DD947c3FadF7455044B5C36b8f';
+    const RouterAddress = "0xE4a8Df9029030926a5cd1E5851A0Bfd609660C2c";
     const DexRouterContract = new caver.klay.Contract(
       DexRouterabi,
       RouterAddress
     );
 
-    const kip7 = new caver.klay.KIP7(
-      tokenAddress1
-    );
+    const kip7 = new caver.klay.KIP7(tokenAddress1);
 
     const allowed = await kip7.allowance(address.number, RouterAddress);
     if (allowed.toString() !== "0") {
@@ -141,6 +174,14 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
     Swap_Token(SwapToken);
   }, [SwapToken]);
 
+  useEffect(() => {
+    getToken1();
+  }, [tokenAddress1])
+
+  useEffect(() => {
+    getToken2();
+  }, [tokenAddress2])
+
   const options1 = swapData.map((el) => {
     return (
       <option value={el.token_name} key={el.token_name}>
@@ -173,6 +214,8 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
     const targetToken2 = SwapToken.find((el) => el.token_name === choice2);
     setTokenAddress2(targetToken2?.token_address);
   }, [choice2]);
+
+
 
   return (
     <main className="box-model">
@@ -266,7 +309,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
           <Row>
             <Col sm={4}>잔액 </Col>
             <Col className="about" sm={8}>
-              약$0.0000
+              {tokenAmount1}
             </Col>
           </Row>
         </Container>
@@ -366,7 +409,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
               <Col className="about" sm={8}>
                 <h3>
                   <input
-                    className="number"
+                    className="number" value={save}
                     onKeyPress={(event) => {
                       if (!/[0-9]/.test(event.key)) {
                         event.preventDefault();
@@ -380,9 +423,9 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
           </p>
 
           <Row>
-            <Col sm={4}>잔액0.0000</Col>
+            <Col sm={4}>잔액</Col>
             <Col className="about" sm={8}>
-              약$0.0000
+              {tokenAmount2}
             </Col>
           </Row>
         </Container>
@@ -400,4 +443,4 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
   );
 };
 
-export default Swap
+export default Swap;
