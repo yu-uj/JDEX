@@ -64,7 +64,7 @@ module.exports = {
                 pair_name : req.body.pair_name,
                 tokenA_address : req.body.tokenA_address,
                 tokenB_address : req.body.tokenB_address,
-
+                pid : req.body.pid,
             }
             const kip7pool = await new kip7pairmodel(kip7poolData).saveKIP7pair();
 
