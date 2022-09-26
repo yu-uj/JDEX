@@ -71,11 +71,11 @@ function Kip7Pair() {
 		getKip7Pool();
 	}, []);
 
-	const Kip7_Pool = (list) => {
+	const Kip7_Pool = async (list) => {
 		let arr = [];
 		for (let i = 0; i < list.length; i++) {
 			let el = list[i];
-			// console.log(el.token_address)
+        let depositedValue = await FarmingContract.methods.userInfo(el.pid, address.number).call();
 			let obj = {
 				pair_name: el.pair_name,
 				pair_address: el.pair_address,
@@ -84,6 +84,7 @@ function Kip7Pair() {
 				token_amount: '토큰 수량',
 				token_price: "가격",
                 pid: el.pid,
+	            depositedValue: caver.utils.fromPeb(depositedValue[0]),
 			}
 			arr.push(obj);
 		}
@@ -195,7 +196,7 @@ function Kip7Pair() {
 									<Card.Text>
 										<p>총 예치규모</p>
 										<p>내 보유량<br />
-                                        <span>{depositedAmount}</span>
+                                        <span key={el.pid}>{el.depositedValue} {el.pair_name}</span>
                                         </p>
 									</Card.Text>
 								</Card.Body>

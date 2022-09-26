@@ -73,11 +73,12 @@ function KlayPair() {
         getKlayPool(); 
     }, []);
 
-    const Klay_Pool = (list) => {
+    const Klay_Pool = async (list) => {
         let arr = [];
         for (let i = 0; i < list.length; i++) {
-          let el = list[i];
+        let el = list[i];
             // console.log(el.token_address)
+        let depositedValue = await FarmingContract.methods.userInfo(el.pid, address.number).call();
           let obj = {
             pair_name: el.pair_name,
             pair_address: el.pair_address,
@@ -85,6 +86,7 @@ function KlayPair() {
             token_amount: '토큰 수량',
             token_price: "가격",
             pid: el.pid,
+            depositedValue: caver.utils.fromPeb(depositedValue[0]),
           }
           arr.push(obj);
         }
@@ -166,7 +168,7 @@ function KlayPair() {
         )
         setWithdraw(false)
     }
-
+    console.log(KlayData);
     return (
         <div>
             <br/>
@@ -186,7 +188,9 @@ function KlayPair() {
                     <Card.Title>{el.pair_name}</Card.Title>
                     <Card.Text>
                         <p>총 예치규모</p>
-                        <p>내 보유량</p>
+                        <p>내 보유량<br />
+                        <span key={el.pid}>{el.depositedValue} {el.pair_name}</span>
+                        </p>
                     </Card.Text>
                     </Card.Body>
                     <Card.Footer>
