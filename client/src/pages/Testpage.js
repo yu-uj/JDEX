@@ -12,6 +12,7 @@ import {
 	ButtonGroup,
 } from "react-bootstrap";
 
+
 const Caver = require("caver-js");
 const caver = new Caver(window.klaytn);
 const KIP7ABI = require("../contract/KIP7.json");
@@ -78,7 +79,7 @@ const Testpage = ({ form, former, children, todo, todoo, teacher }) => {
 
 	const swap = async () => {
 		const DexRouterabi = require("../contract/router.json");
-		const RouterAddress = "0xE4a8Df9029030926a5cd1E5851A0Bfd609660C2c";
+		const RouterAddress ='0x63e3cB8C959068DD947c3FadF7455044B5C36b8f';
 		const DexRouterContract = new caver.klay.Contract(
 			DexRouterabi,
 			RouterAddress
