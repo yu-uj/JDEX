@@ -31,10 +31,31 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
 
   const [amount, setAmount] = useState("");
 
-  const handleInput = (e) => {
-    setAmount(e.target.value);
-  };
+  const [tokenAmount1, setTokenAmount1] = useState("");
+  const [tokenAmount2, setTokenAmount2] = useState("");
 
+  const [save, setSave] = useState("");
+
+  const handleInput = async (e) => {
+    setAmount(e.target.value);
+
+    console.log(amount);
+
+    const DexRouterabi = require('../contract/router.json');
+    const RouterAddress = '0x63e3cB8C959068DD947c3FadF7455044B5C36b8f';
+
+    const DexRouterContract = new caver.klay.Contract(DexRouterabi, RouterAddress);
+
+    const a = await DexRouterContract.methods.getAmountsOut(caver.utils.toPeb(e.target.value, "KLAY"), [
+      tokenAddress1,
+      tokenAddress2,
+    ]).call();
+
+    setSave(caver.utils.fromPeb(a[1], "KLAY"));
+
+    console.log(save);
+  };
+ 
   const handleCreate = () => setCreate(true);
 
   const createClose = ({ isSave }) => {
@@ -59,6 +80,20 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
     token_address: "0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1",
   };
 
+  const getToken1 = async () => {
+    const kip7 = new caver.klay.KIP7(tokenAddress1);
+    const Tokenbalance1 = await kip7.balanceOf(address.number); // 내 주소가 갖고 있는 그 토큰의 잔액
+    console.log(caver.utils.fromPeb(Tokenbalance1));
+    setTokenAmount1(caver.utils.fromPeb(Tokenbalance1)) //-> 예시로 usestate사용해 토큰 잔액 넣고 불러와서 사용하면 될듯 
+  }
+
+  const getToken2 = async () => {
+    const kip7 = new caver.klay.KIP7(tokenAddress2);
+    const Tokenbalance2 = await kip7.balanceOf(address.number); // 내 주소가 갖고 있는 그 토큰의 잔액
+    console.log(caver.utils.fromPeb(Tokenbalance2));
+    setTokenAmount2(caver.utils.fromPeb(Tokenbalance2)) //-> 예시로 usestate사용해 토큰 잔액 넣고 불러와서 사용하면 될듯 
+  }
+
   const swap = async () => {
     const DexRouterabi = require("../contract/router.json");
     const RouterAddress = "0xE4a8Df9029030926a5cd1E5851A0Bfd609660C2c";
@@ -67,9 +102,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
       RouterAddress
     );
 
-    const kip7 = new caver.klay.KIP7(
-      tokenAddress1
-    );
+    const kip7 = new caver.klay.KIP7(tokenAddress1);
 
     const allowed = await kip7.allowance(address.number, RouterAddress);
     if (allowed.toString() !== "0") {
@@ -141,6 +174,14 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
     Swap_Token(SwapToken);
   }, [SwapToken]);
 
+  useEffect(() => {
+    getToken1();
+  }, [tokenAddress1])
+
+  useEffect(() => {
+    getToken2();
+  }, [tokenAddress2])
+
   const options1 = swapData.map((el) => {
     return (
       <option value={el.token_name} key={el.token_name}>
@@ -174,21 +215,31 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
     setTokenAddress2(targetToken2?.token_address);
   }, [choice2]);
 
+
   return (
     <div>
-      <h1>Token Swap</h1>
+      <Row>
+        <Col sm={3}></Col>
+        <Col sm={6}>
+        <div className="swapPageInfo">
+				<h2>Token Swap</h2>
+          <p>보유하고 있는 <b>JDEX 토큰</b>과 <b>KIP7 토큰</b>을 <br /> 원하는 다른 토큰과 <b>스왑</b> 할 수 있습니다.</p>
+        </div>
+        </Col>
+        <Col sm={3}></Col>
+      </Row>
       <div className="box-model">
         <div className="former-wrapper">
           {former}
           <Container>
-            <Row>
-              <Col sm={6}><h5>제공</h5></Col>
+            <Row className="g-4">
+              <Col sm={6}><h4>제공</h4></Col>
               <Col sm={6}>
                 <ButtonGroup>
-                  <Button>25%</Button>
-                  <Button>50%</Button>
-                  <Button>75%</Button>
-                  <Button>최대치</Button>
+                  <Button  variant="secondary">25%</Button>
+                  <Button  variant="secondary">50%</Button>
+                  <Button  variant="secondary">75%</Button>
+                  <Button  variant="secondary">최대치</Button>
                 </ButtonGroup>
               </Col>
             </Row>
@@ -211,7 +262,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                     onHide={() => createClose({ isSave: false })}
                   >
                     <Modal.Header closeButton>
-                      <Modal.Title>제공</Modal.Title>
+                      <Modal.Title>제공 토큰</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                       <Form>
@@ -219,9 +270,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                           className="mb-1"
                           controlId="exampleForm.ControlInput1"
                         >
-
-                          <Form.Label>Token Select</Form.Label>
-
+                          <Form.Label><h5>Token Select</h5></Form.Label>
                           <Form.Select onChange={handleSwap1} value={selected1}>
                             <option value="">---토큰 선택---</option>
                             {options1}
@@ -269,9 +318,9 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
 
 
             <Row>
-              <Col sm={4}>잔액 </Col>
+              <Col className="swapInfo" sm={4}><h6>잔액</h6></Col>
               <Col className="about" sm={8}>
-                약$0.0000
+                {tokenAmount1}
               </Col>
             </Row>
           </Container>
@@ -279,7 +328,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
 
         <section className="todoo-wrapper">
           {todoo}
-          <Button>
+          <Button variant="secondary">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30"
@@ -297,7 +346,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
           {todo}
           <Container>
             <Row>
-              <Col sm={8}><h5>수령</h5></Col>
+              <Col sm={8}><h4>수령</h4></Col>
               <Col sm={4}>
                 <Form>
                   {["checkbox"].map((type) => (
@@ -333,7 +382,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                     onHide={() => handleClose({ isSave: false })}
                   >
                     <Modal.Header closeButton>
-                      <Modal.Title>수령</Modal.Title>
+                      <Modal.Title>수령 토큰</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                       <Form>
@@ -342,7 +391,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                           controlId="exampleForm.ControlInput1"
                         >
                           <p>
-                            <Form.Label>Token Select</Form.Label>
+                            <Form.Label><h5>Token Select</h5></Form.Label>
                           </p>
                           <Form.Select onChange={handleSwap2} value={selected2}>
                             <option value="">---토큰 선택---</option>
@@ -379,6 +428,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                 <h3>
                   <input
                     className="number"
+                    value={save}
                     placeholder="0.0000"
                     onKeyPress={(event) => {
                       if (!/[0-9]/.test(event.key)) {
@@ -390,28 +440,28 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
               </Col>
             </Row>
 
-
             <Row>
-              <Col sm={4}><h6>잔액</h6></Col>
+            <Col className="swapInfo" sm={4}><h6>잔액</h6></Col>
               <Col className="about" sm={8}>
-                약$0.0000
+              {tokenAmount2}
               </Col>
             </Row>
           </Container>
         </section>
 
-        <section className="button-wrapper">
+        <div className="button-wrapper">
           {teacher}
+          <br/>
           <div className="d-grid gap-2">
-            <Button variant="primary" size="lg" onClick={swap}>
+            <Button variant="dark" size="lg" onClick={swap}>
               Swap
             </Button>
           </div>
-        </section>
+        </div>
       </div>
     </div>
 
   );
 };
 
-export default Swap
+export default Swap;

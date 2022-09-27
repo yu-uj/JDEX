@@ -17,6 +17,10 @@ const kip7pairSchema = new mongoose.Schema({
     tokenB_address: {
         type: String,
         required: true,
+    },
+    pid: {
+        type: Number,
+        required: true,
     }
 });
 

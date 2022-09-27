@@ -141,6 +141,7 @@ function MyToken() {
         <p>연결된 지갑에서 내가 보유하고 있는 <b>토큰</b>정보를 확인하고, <br/> 간편하게 <b>전송</b>해보세요.</p>
       </div>
       <br/>
+      <br/>
       <ListGroup as="ul">
         <ListGroup.Item as="li" variant="secondary">
           <Row>
@@ -152,7 +153,7 @@ function MyToken() {
         </ListGroup.Item>
         <ListGroup.Item as="li">
           <Row>
-            <Col xs={4} sm={3}><strong>klay</strong></Col>
+            <Col xs={4} sm={3}><strong>KLAY</strong></Col>
             <Col xs={8} sm={5}>{balance}</Col>
             <Col xs={6} sm={2}>price</Col>
             <Col xs={2} sm={2}><Button variant="primary" onClick={handleShow1}>Transfer

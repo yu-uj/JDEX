@@ -13,6 +13,10 @@ const klaypairSchema = new mongoose.Schema({
     token_address: {
         type: String,
         required: true,
+    },
+    pid: {
+        type: Number,
+        required: true,
     }
 });
 
