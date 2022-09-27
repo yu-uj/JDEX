@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
+import { Modal, Button } from 'react-bootstrap';
 import { useDispatch } from "react-redux";
 
 function Counter(props) {
@@ -7,6 +8,9 @@ function Counter(props) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [cw, setCw] = useState("Connect Wallet");
     const [ctk, setCtk] = useState("Connect to Kaikas");
+
+    const modalClose = () => setModalIsOpen(false);
+    const modalOpen = () => setModalIsOpen(true);
 
     const dispatch = useDispatch();
     const dispatchSetCW = (cw) => dispatch({ type: "SET_CW", number: cw });
@@ -26,19 +30,31 @@ function Counter(props) {
 
     return (
         <>
-            <button onClick={() => setModalIsOpen(true)}>{number}</button>
-            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                <h2>Connect Wallet</h2>
-                <div>You can start using JDex right away, using Kaikas</div>
-                <button
+            <Button size="sm" variant="outline-secondary" onClick={modalOpen}>{number}</Button>
+            <Modal 
+            show={modalIsOpen} 
+            onHide={modalClose}
+            backdrop="static"
+            keyboard={false}
+            >   <Modal.Header closeButton>
+                    <Modal.Title>Connect Wallet</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    You can start using JDex right away, using Kaikas.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
                     className="metaConnect"
+                    variant="primary"
                     onClick={() => {
                         connectWallet();
-                    }}
-                >
-                    {ctk}
-                </button>
+                    }}>
+                        {ctk}
+                    </Button>
+                </Modal.Footer>
             </Modal>
+
+            
 
         </>
     );

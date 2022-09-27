@@ -1,0 +1,18 @@
+.Pool {
+    text-align: center;
+}
+
+.pageInfo{
+    text-align: left;
+    font-size: 13px;
+}
+
+.pageInfoP {
+    text-align: center;
+    font-style: italic;
+    color: black;
+}
+
+.mb-4{
+    padding : 10px
+}
