@@ -17,8 +17,8 @@ const Home = () => {
             <br />
             <div className="wbtn">
                 <div className="wb">
-                    <h5 className='wc'>JDEX 이용을 위해</h5>
-                    <h4 className='wc'>지갑을 연결 해주세요!</h4>
+                    <h6 className='wc'>JDEX 이용을 위해</h6>
+                    <h5 className='wc'>클레이튼 지갑을 연결 해주세요!</h5>
                     <br/>
                     <CounterContainer />
                     <br/>
