@@ -2,6 +2,15 @@
 
 <div><h2>Collaboration Tool</h1></div>
 
+
+<div><h2>Frontend</h1></div>
+
+
+<div><h2>Backend</h1></div>
+
+
+<div><h2>Blockchain</h1></div>
+
 <div align=center><h1>📚 STACKS</h1></div>
 
 <div align=center> 
