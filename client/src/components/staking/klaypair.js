@@ -184,146 +184,167 @@ function KlayPair() {
 								border={'Secondary'}
 								className="mb-4"
 							>
-								<Card.Body>
-									<Card.Title>{el.pair_name}</Card.Title>
-									<Card.Text>
-										<p>총 예치규모<br />
-											<span>{el.totalStaked}</span>
-										</p>
-										<p>나의 예치한 양<br />
-											<span key={el.pid}>{el.depositedValue} {el.pair_name}</span>
-										</p>
-									</Card.Text>
-								</Card.Body>
-								<Card.Footer>
-									<>
-										<Button variant="primary" onClick={() => depositShow(el)} >Deposit</Button>
-										<Modal
-											size="lg"
-											show={depo}
-											onHide={depositClose}
-											backdrop="static"
-											keyboard={false}
-											aria-labelledby="example-modal-sizes-title-sm"
-										>
-											<Modal.Header closeButton>
-												{/* 선택한 카드의 풀 이름과 맵핑 */}
-												<Modal.Title>{selectPair.pair_name} Deposit</Modal.Title>
-											</Modal.Header>
-											<Modal.Body>
-												<div>
-													<h5>내 예치 자산</h5>
-													<strong>0{/*[예치한토큰갯수]*/}</strong>
-													<span>{/*[토큰심볼]*/}</span>
-													<br />
-													<br />
-													<h5>내 지분</h5>
-													<strong>[보유지분율]</strong>
-													<span>%</span>
-													<br />
-													<br />
-												</div>
-												<Form>
-													{/* Deposit Input  */}
-													{/* 토큰 이름, 심볼, 매핑 필요  */}
-													<Form.Label>KLAY</Form.Label>
-													<InputGroup className="mb-3">
-														<Form.Control
-															type="text"
-															placeholder="예치할 KLAY 수량"
-															autoFocus
-															aria-label="Default"
-															aria-describedby="inputGroup-sizing-default"
-															onChange={(e) => handleDepositInput1(e)}
-														/>
-														<InputGroup.Text id="inputGroup-sizing-default">KLAY</InputGroup.Text>
-													</InputGroup>
+								<Row>
+									<Col sm={9}>
+										<Card.Body>
+											<Row>
+												<Col sm={4}>
+													<h6>[ KLAY PAIR ]</h6>
+													<Card.Title><p className='tname'><h3>{el.pair_name}</h3></p></Card.Title>
+												</Col>
+												<Col sm={8}>
+													<Card.Text>
+														<Row>
+															<Col>
+															<b><p className='ap'>총 예치규모</p></b>
+														<h5><p className='num'>{el.totalStaked}</p></h5>
+														</Col>
+															<Col>
+															<b><p className='ap'>나의 예치한 양</p></b>
+														<h5><span className='num' key={el.pid}>{Number(el.depositedValue).toFixed(1)}</span><span className='lp'> {el.pair_name}</span></h5>
+														</Col>
+														</Row>
+														
+														
+													</Card.Text>
+												</Col>
+											</Row>
+										</Card.Body>
+									</Col>
+									<Col sm={3}>
+										<div className="d-grid gap-3">
 
-													<Form.Label>Token2 Name</Form.Label>
-													<p>address: {selectPair.token_address}</p>
-													<InputGroup className="mb-3">
-														<Form.Control
-															type="text"
-															placeholder="예치할 토큰2 수량"
-															autoFocus
-															aria-label="Default"
-															aria-describedby="inputGroup-sizing-default"
-															onChange={(e) => handleDepositInput2(e)}
-														/>
-														<InputGroup.Text id="inputGroup-sizing-default">KLAY[토큰2심볼]</InputGroup.Text>
-													</InputGroup>
-												</Form>
-											</Modal.Body>
-											<Modal.Footer>
-												<Button variant="secondary" onClick={depositClose}>
-													취소
-												</Button>
-												<Button type="submit" variant="primary" onClick={Deposit}>확인</Button>
-											</Modal.Footer>
-										</Modal>
+											<>
+												<Button variant="dark" onClick={() => depositShow(el)} >Deposit</Button>
+												<Modal
+													size="lg"
+													show={depo}
+													onHide={depositClose}
+													backdrop="static"
+													keyboard={false}
+													aria-labelledby="example-modal-sizes-title-sm"
+												>
+													<Modal.Header closeButton>
+														{/* 선택한 카드의 풀 이름과 맵핑 */}
+														<Modal.Title>{selectPair.pair_name} Deposit</Modal.Title>
+													</Modal.Header>
+													<Modal.Body>
+														<div>
+															<h5>내 예치 자산</h5>
+															<strong>{Number(depositedAmount).toFixed(2)}</strong>
+															<span>{/*[토큰심볼]*/}</span>
+															<br />
+															<br />
+															<h5>내 지분</h5>
+															<strong>[보유지분율]</strong>
+															<span>%</span>
+															<br />
+															<br />
+														</div>
+														<Form>
+															{/* Deposit Input  */}
+															{/* 토큰 이름, 심볼, 매핑 필요  */}
+															<Form.Label>KLAY</Form.Label>
+															<InputGroup className="mb-3">
+																<Form.Control
+																	type="text"
+																	placeholder="예치할 KLAY 수량"
+																	autoFocus
+																	aria-label="Default"
+																	aria-describedby="inputGroup-sizing-default"
+																	onChange={(e) => handleDepositInput1(e)}
+																/>
+																<InputGroup.Text id="inputGroup-sizing-default">KLAY</InputGroup.Text>
+															</InputGroup>
 
-										<Button variant="primary" onClick={() => withdrawShow(el)}>Withdraw</Button>
-										<Modal
-											size="lg"
-											show={widr}
-											onHide={withdrawClose}
-											backdrop="static"
-											keyboard={false}
-											aria-labelledby="example-modal-sizes-title-sm"
-										>
-											<Modal.Header closeButton>
-												{/* 선택한 카드의 풀 이름과 맵핑 */}
-												<Modal.Title>{selectPair.pair_name} Withdraw</Modal.Title>
-											</Modal.Header>
-											<Modal.Body>
-												<div>
-													<h5>내 예치 자산</h5>
-													<strong>0{/*[예치한토큰갯수]*/}</strong>
-													<span>{/*[토큰심볼]*/}</span>
-													<br />
-													<br />
-													<h5>내 지분</h5>
-													<strong>[보유지분율]</strong>
-													<span>%</span>
-													<br />
-													<br />
-												</div>
-												<Form>
-													{/* Withdraw Input  */}
-													{/* 토큰 이름, 심볼, 매핑 필요  */}
-													<Form.Label>{selectPair.pair_name}</Form.Label>
-													<p>address: {selectPair.pair_address}</p>
-													<p>출금가능한 LP 토큰: {depositedAmount}</p>
-													<p>수령가능한 리워드: {RewardAmount}</p>
-													<InputGroup className="mb-3">
-														<Form.Control
-															type="text"
-															placeholder="출금할 토큰1 수량"
-															autoFocus
-															aria-label="Default"
-															aria-describedby="inputGroup-sizing-default"
-															onChange={(e) => handleWithdrawInput(e)}
-														/>
-														<InputGroup.Text id="inputGroup-sizing-default">KLAY[토큰1심볼]</InputGroup.Text>
-													</InputGroup>
+															<Form.Label>Token2 Name</Form.Label>
+															<p>address: {selectPair.token_address}</p>
+															<InputGroup className="mb-3">
+																<Form.Control
+																	type="text"
+																	placeholder="예치할 토큰2 수량"
+																	autoFocus
+																	aria-label="Default"
+																	aria-describedby="inputGroup-sizing-default"
+																	onChange={(e) => handleDepositInput2(e)}
+																/>
+																<InputGroup.Text id="inputGroup-sizing-default">KLAY[토큰2심볼]</InputGroup.Text>
+															</InputGroup>
+														</Form>
+													</Modal.Body>
+													<Modal.Footer>
+														<Button variant="secondary" onClick={depositClose}>
+															취소
+														</Button>
+														<Button type="submit" variant="primary" onClick={Deposit}>확인</Button>
+													</Modal.Footer>
+												</Modal>
 
-												</Form>
-											</Modal.Body>
-											<Modal.Footer>
-												<Button variant="secondary" onClick={withdrawClose}>
-													취소
-												</Button>
-												<Button type="submit" variant="primary" onClick={Withdraw}>확인</Button>
-											</Modal.Footer>
-										</Modal>
-									</>
-								</Card.Footer>
+												<Button variant="outline-secondary" onClick={() => withdrawShow(el)}>Withdraw</Button>
+												<Modal
+													size="lg"
+													show={widr}
+													onHide={withdrawClose}
+													backdrop="static"
+													keyboard={false}
+													aria-labelledby="example-modal-sizes-title-sm"
+												>
+													<Modal.Header closeButton>
+														{/* 선택한 카드의 풀 이름과 맵핑 */}
+														<Modal.Title>{selectPair.pair_name} Withdraw</Modal.Title>
+													</Modal.Header>
+													<Modal.Body>
+														<div>
+															<h5>내 예치 자산</h5>
+															<strong>0{/*[예치한토큰갯수]*/}</strong>
+															<span>{/*[토큰심볼]*/}</span>
+															<br />
+															<br />
+															<h5>내 지분</h5>
+															<strong>[보유지분율]</strong>
+															<span>%</span>
+															<br />
+															<br />
+														</div>
+														<Form>
+															{/* Withdraw Input  */}
+															{/* 토큰 이름, 심볼, 매핑 필요  */}
+															<Form.Label>{selectPair.pair_name}</Form.Label>
+															<p>address: {selectPair.pair_address}</p>
+															<p>출금가능한 LP 토큰: {Number(depositedAmount).toFixed(2)}</p>
+															<p>수령가능한 리워드: {Number(RewardAmount).toFixed(2)}</p>
+															<InputGroup className="mb-3">
+																<Form.Control
+																	type="text"
+																	placeholder="출금할 토큰1 수량"
+																	autoFocus
+																	aria-label="Default"
+																	aria-describedby="inputGroup-sizing-default"
+																	onChange={(e) => handleWithdrawInput(e)}
+																/>
+																<InputGroup.Text id="inputGroup-sizing-default">KLAY[토큰1심볼]</InputGroup.Text>
+															</InputGroup>
+
+														</Form>
+													</Modal.Body>
+													<Modal.Footer>
+														<Button variant="secondary" onClick={withdrawClose}>
+															취소
+														</Button>
+														<Button type="submit" variant="primary" onClick={Withdraw}>확인</Button>
+													</Modal.Footer>
+												</Modal>
+											</>
+										</div>
+									</Col>
+								</Row>
 							</Card>
 						))}
 					</Col>
 				))}
 			</Row>
 		</div>
+
 	);
 }
 

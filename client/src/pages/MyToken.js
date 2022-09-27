@@ -5,17 +5,15 @@ import { useSelector } from 'react-redux';
 import '../assets/css/Page.css';
 
 const Caver = require('caver-js');
-const caver = new Caver(new Caver.providers.WebsocketProvider("wss://public-node-api.klaytnapi.com/v1/baobab/ws"));
+const caver = new Caver(window.klaytn);
 const KIP7ABI = require('../contract/KIP7.json');
 
 function MyToken() {
-  // 수정
   const [currentTokenAddress, setCurrentTokenAddress] = useState("");
 
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const handleClose = () => setShow(false);
-  // 수정
   const handleShow = (el) => {
     setCurrentTokenAddress(el.token_address);
     setShow(true);
@@ -32,7 +30,7 @@ function MyToken() {
 
   const [balance, setbalance] = useState("");
   const [KIP7bal, setKIP7bal] = useState("");
-  // let checksum_address = caver.utils.toChecksumAddress('0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1');
+
   const dummydata = {
     token_address: '0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1'
   }
@@ -145,18 +143,18 @@ function MyToken() {
       <ListGroup as="ul">
         <ListGroup.Item as="li" variant="secondary">
           <Row>
-            <Col xs={4} sm={3}><strong>Token name</strong></Col>
-            <Col xs={8} sm={5}><strong>Amount</strong></Col>
-            <Col xs={6} sm={2}><strong>Price</strong></Col>
-            <Col xs={2} sm={2}><strong>Transfer</strong></Col>
+            <Col xs={4} sm={3}><strong className='mlp'>Token name</strong></Col>
+            <Col xs={8} sm={5}><strong className='mlp'>Amount</strong></Col>
+            <Col xs={6} sm={2}><strong className='mlp'>Price</strong></Col>
+            <Col xs={2} sm={2}><strong className='mlp'>Transfer</strong></Col>
           </Row>
         </ListGroup.Item>
         <ListGroup.Item as="li">
           <Row>
-            <Col xs={4} sm={3}><strong>KLAY</strong></Col>
-            <Col xs={8} sm={5}>{balance}</Col>
-            <Col xs={6} sm={2}>price</Col>
-            <Col xs={2} sm={2}><Button variant="primary" onClick={handleShow1}>Transfer
+            <Col xs={4} sm={3}><strong className='myklay'>KLAY</strong></Col>
+            <Col xs={8} sm={5}><strong className='mnum'>{Number(balance).toFixed(1)}</strong></Col>
+            <Col xs={6} sm={2}><strong>price</strong></Col>
+            <Col xs={2} sm={2}><Button variant="dark" onClick={handleShow1}>Transfer
             </Button>
             </Col>
           </Row>
@@ -164,11 +162,11 @@ function MyToken() {
         {tokendata.map((el) => (
           <ListGroup.Item as="li">
             <Row>
-              <Col xs={4} sm={3}><strong>{el.token_name}</strong></Col>
-              <Col xs={8} sm={5}>{el.token_amount}</Col>
-              <Col xs={6} sm={2}>{el.token_price}</Col>
+              <Col xs={4} sm={3}><strong className='mytname'>{el.token_name}</strong></Col>
+              <Col xs={8} sm={5}><strong className='mnum'>{Number(el.token_amount).toFixed(1)}</strong></Col>
+              <Col xs={6} sm={2}><strong>{el.token_price}</strong></Col>
               <Col xs={2} sm={2}>
-                <Button variant="primary" onClick={() => handleShow(el)}>Transfer
+                <Button variant="secondary" onClick={() => handleShow(el)}>Transfer
                 </Button>
               </Col>
             </Row>

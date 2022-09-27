@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Button, Modal, Form, InputGroup } from 'react-bootstrap';
 import '../../assets/css/Page.css';
 // import Create from "./create";
 import { useSelector } from "react-redux";
-import JdFarm_ABI from '../../contract/JdFarm.json';
-import YUFarm_ABI from "../../contract/YUFarm.json";
-import YKTFarm_ABI from "../../contract/YKTFarm.json";
+
 const Caver = require('caver-js');
 const caver = new Caver(window.klaytn);
+
+const singlepoolabi = require('../../contract/singlepool.json');
+
+const yktokenpoolAddress = '0xaa80658f5a86562f07BdF7caD649299BA3997036';
+const jdtokenpoolAddress = '0xEF9b295fc00D6B3CE3465fF82CFBc159e2abd747';
+const yutokenpoolAddress = '0x325e857E8Fd7F51e4682C1B42ec3b40c1E325550';
+
+
+const ykpoolContract = new caver.klay.Contract(singlepoolabi, yktokenpoolAddress);
+const jdpoolContract = new caver.klay.Contract(singlepoolabi, jdtokenpoolAddress);
+const yupoolContract = new caver.klay.Contract(singlepoolabi, yutokenpoolAddress);
 
 function Single() {
 	const [depo, setDeposit] = useState(false);
@@ -18,6 +27,14 @@ function Single() {
 
 	const [depo2, setDeposit2] = useState(false);
 	const [widr2, setWithdraw2] = useState(false);
+
+	const [totalstaked, setTotalstaked] = useState('');
+	const [totalstaked1, setTotalstaked1] = useState('');
+	const [totalstaked2, setTotalstaked2] = useState('');
+
+	const [mystaked, setMystaked] = useState('');
+	const [mystaked1, setMystaked1] = useState('');
+	const [mystaked2, setMystaked2] = useState('');
 
 	const depositShow = () => setDeposit(true);
 	const depositClose = () => setDeposit(false);
@@ -38,16 +55,10 @@ function Single() {
 	const withdrawClose2 = () => setWithdraw2(false);
 
 	const JdToken_Address = "0xE807326D86f631495Bb9c1F8888604879c18E5BB";
-	const JdFarm_Address = "0xf53aeBC779c9B5Bc981C2A07b25A335C54aae59A";
-	const JdFarm_Contract = new caver.klay.Contract(JdFarm_ABI, JdFarm_Address);
 
 	const YUToken_Address = "0xd7877710190E492561F692a08117c63e32cf8ac1";
-	const YUFarm_Address = "0x40BA9AE12F82D92A970c9FE3b437dC4eCef4c79b";
-	const YUFarm_Contract = new caver.klay.Contract(YUFarm_ABI, YUFarm_Address);
 
 	const YKTToken_Address = "0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d";
-	const YKTFarm_Address = "0xcA2d1DB62217Ad30767fAdFDe656A98ABF448A2f";
-	const YKTFarm_Contract = new caver.klay.Contract(YKTFarm_ABI, YKTFarm_Address);
 
 	const address = useSelector((state) => state.counter);
 
@@ -59,70 +70,114 @@ function Single() {
 
 		const kip7 = new caver.klay.KIP7(JdToken_Address);
 
-		const allowed = await kip7.allowance(address.number, JdFarm_Address);
+		const allowed = await kip7.allowance(address.number, jdtokenpoolAddress);
 		if (allowed.toString() === "0") {
 			try {
-				await kip7.approve(JdFarm_Address, caver.utils.toPeb("100000000"), {
+				await kip7.approve(jdtokenpoolAddress, caver.utils.toPeb("100000000"), {
 					from: address.number,
 				});
 			} catch (err) {
 				console.log(err);
 			}
 		}
-		await JdFarm_Contract.methods.stakeTokens(caver.utils.toPeb(amount))
+		await jdpoolContract.methods.deposit(caver.utils.toPeb(amount))
 			.send({ from: address.number, gas: 200000000 });
+		setDeposit(false)
 	};
 
 	const handleTransfer2 = async () => {
-		await JdFarm_Contract.methods.unstakeTokens()
+		await jdpoolContract.methods.withdraw(caver.utils.toPeb(amount))
 			.send({ from: address.number, gas: 200000000 });
+		setWithdraw(false);
 	};
 
 	const handleTransfer3 = async () => {
 
 		const kip7 = new caver.klay.KIP7(YUToken_Address);
 
-		const allowed = await kip7.allowance(address.number, YUFarm_Address);
+		const allowed = await kip7.allowance(address.number, yutokenpoolAddress);
 		if (allowed.toString() === "0") {
 			try {
-				await kip7.approve(YUFarm_Address, caver.utils.toPeb("100000000"), {
+				await kip7.approve(yutokenpoolAddress, caver.utils.toPeb("100000000"), {
 					from: address.number,
 				});
 			} catch (err) {
 				console.log(err);
 			}
 		}
-		await YUFarm_Contract.methods.stakeTokens(caver.utils.toPeb(amount))
+		await yupoolContract.methods.deposit(caver.utils.toPeb(amount))
 			.send({ from: address.number, gas: 200000000 });
+		setDeposit1(false)
 	};
 
 	const handleTransfer4 = async () => {
-		await YUFarm_Contract.methods.unstakeTokens()
+		await yupoolContract.methods.withdraw(caver.utils.toPeb(amount))
 			.send({ from: address.number, gas: 200000000 });
+
+		setWithdraw1(false)
 	};
 
 	const handleTransfer5 = async () => {
 
 		const kip7 = new caver.klay.KIP7(YKTToken_Address);
 
-		const allowed = await kip7.allowance(address.number, YKTFarm_Address);
+		const allowed = await kip7.allowance(address.number, yktokenpoolAddress);
 		if (allowed.toString() === "0") {
 			try {
-				await kip7.approve(YKTFarm_Address, caver.utils.toPeb("100000000"), {
+				await kip7.approve(yktokenpoolAddress, caver.utils.toPeb("100000000"), {
 					from: address.number,
 				});
 			} catch (err) {
 				console.log(err);
 			}
 		}
-		await YKTFarm_Contract.methods.stakeTokens(caver.utils.toPeb(amount))
+		await ykpoolContract.methods.deposit(caver.utils.toPeb(amount))
 			.send({ from: address.number, gas: 200000000 });
+		setDeposit2(false)
 	};
 
 	const handleTransfer6 = async () => {
-		await YKTFarm_Contract.methods.unstakeTokens()
+		await ykpoolContract.methods.withdraw(caver.utils.toPeb(amount))
 			.send({ from: address.number, gas: 200000000 });
+		setWithdraw2(false)
 	};
+	const Totalstaked = async () => {
+		let a = await jdpoolContract.methods.pool().call();
+		setTotalstaked(caver.utils.fromPeb(a[11], "KLAY"));
+	}
+	const Totalstaked1 = async () => {
+		let a = await yupoolContract.methods.pool().call();
+		setTotalstaked1(caver.utils.fromPeb(a[11], "KLAY"));
+	}
+	const Totalstaked2 = async () => {
+		let a = await ykpoolContract.methods.pool().call();
+		setTotalstaked2(caver.utils.fromPeb(a[11], "KLAY"));
+	}
+
+	useEffect(() => {
+		Totalstaked();
+		Totalstaked1();
+		Totalstaked2();
+	}, []);
+
+	const MyStaked = async () => {
+		let a = await jdpoolContract.methods.userInfo(address.number).call();
+		setMystaked(caver.utils.fromPeb(a[0], "KLAY"));
+	}
+	const MyStaked1 = async () => {
+		let a = await yupoolContract.methods.userInfo(address.number).call();
+		setMystaked1(caver.utils.fromPeb(a[0], "KLAY"));
+	}
+	const MyStaked2 = async () => {
+		let a = await ykpoolContract.methods.userInfo(address.number).call();
+		setMystaked2(caver.utils.fromPeb(a[0], "KLAY"));
+	}
+	useEffect(() => {
+		MyStaked();
+		MyStaked1();
+		MyStaked2();
+	}, []);
+
 
 	return (
 		<div className="Pool">
@@ -147,12 +202,12 @@ function Single() {
 									<Row>
 										<Col sm={3}>
 											<h6>[ KIP7 Token ]</h6>
-											<Card.Title as="h3">JdToken</Card.Title>
+											<Card.Title><p className='tname'><h3>JdToken</h3></p></Card.Title>
 										</Col>
 										<Col sm={9}>
 											<Card.Text>
-												<b><p>총 예치규모</p></b>
-												<b><p>내 보유량</p></b>
+												<b><p className='ap'>총 예치규모</p></b>
+												<h5><p className='num'>{totalstaked}</p></h5>
 											</Card.Text>
 										</Col>
 									</Row>
@@ -164,7 +219,6 @@ function Single() {
 									<>
 										<Button variant="dark" onClick={depositShow} >Deposit</Button>
 										<Modal
-											size="lg"
 											show={depo}
 											onHide={depositClose}
 											backdrop="static"
@@ -178,7 +232,7 @@ function Single() {
 											<Modal.Body>
 												<div>
 													<h5>내 예치 자산</h5>
-													<strong>0{/*[예치한토큰갯수]*/}</strong>
+													<strong>{mystaked}</strong>
 													<span> JD</span>
 													<br />
 													<br />
@@ -215,7 +269,6 @@ function Single() {
 
 										<Button variant="outline-secondary" onClick={withdrawShow}>Withdraw</Button>
 										<Modal
-											size="lg"
 											show={widr}
 											onHide={withdrawClose}
 											backdrop="static"
@@ -229,7 +282,7 @@ function Single() {
 											<Modal.Body>
 												<div>
 													<h5>내 예치 자산</h5>
-													<strong>0{/*[예치한토큰갯수]*/}</strong>
+													<strong>{mystaked}</strong>
 													<span> JD</span>
 													<br />
 													<br />
@@ -288,12 +341,12 @@ function Single() {
 									<Row>
 										<Col sm={3}>
 											<h6>[ KIP7 Token ]</h6>
-											<Card.Title as="h3">YUToken</Card.Title>
+											<Card.Title><p className='tname'><h3>YUToken</h3></p></Card.Title>
 										</Col>
 										<Col sm={9}>
 											<Card.Text>
-												<b><p>총 예치규모</p></b>
-												<b><p>내 보유량</p></b>
+												<b><p className='ap'>총 예치규모</p></b>
+												<h5><p className='num'>{totalstaked1}</p></h5>
 											</Card.Text>
 										</Col>
 									</Row>
@@ -305,7 +358,6 @@ function Single() {
 									<>
 										<Button variant="dark" onClick={depositShow1} >Deposit</Button>
 										<Modal
-											size="lg"
 											show={depo1}
 											onHide={depositClose1}
 											backdrop="static"
@@ -319,7 +371,7 @@ function Single() {
 											<Modal.Body>
 												<div>
 													<h5>내 예치 자산</h5>
-													<strong>0{/*[예치한토큰갯수]*/}</strong>
+													<strong>{mystaked1}</strong>
 													<span> YU</span>
 													<br />
 													<br />
@@ -356,7 +408,6 @@ function Single() {
 
 										<Button variant="secondary" onClick={withdrawShow1}>Withdraw</Button>
 										<Modal
-											size="lg"
 											show={widr1}
 											onHide={withdrawClose1}
 											backdrop="static"
@@ -370,7 +421,7 @@ function Single() {
 											<Modal.Body>
 												<div>
 													<h5>내 예치 자산</h5>
-													<strong>0{/*[예치한토큰갯수]*/}</strong>
+													<strong>{mystaked1}</strong>
 													<span> YU</span>
 													<br />
 													<br />
@@ -429,12 +480,12 @@ function Single() {
 									<Row>
 										<Col sm={3}>
 											<h6>[ KIP7 Token ]</h6>
-											<Card.Title as="h3">YKToken</Card.Title>
+											<Card.Title><p className='tname'><h3>YKToken</h3></p></Card.Title>
 										</Col>
 										<Col sm={9}>
 											<Card.Text>
-												<b><p>총 예치규모</p></b>
-												<b><p>내 보유량</p></b>
+												<b><p className='ap'>총 예치규모</p></b>
+												<h5><p className='num'>{totalstaked2}</p></h5>
 											</Card.Text>
 										</Col>
 									</Row>
@@ -446,7 +497,6 @@ function Single() {
 									<>
 										<Button variant="dark" onClick={depositShow2}>Deposit</Button>
 										<Modal
-											size="lg"
 											show={depo2}
 											onHide={depositClose2}
 											backdrop="static"
@@ -460,7 +510,7 @@ function Single() {
 											<Modal.Body>
 												<div>
 													<h5>내 예치 자산</h5>
-													<strong>0{/*[예치한토큰갯수]*/}</strong>
+													<strong>{mystaked2}</strong>
 													<span> YKT</span>
 													<br />
 													<br />
@@ -497,7 +547,6 @@ function Single() {
 
 										<Button variant="secondary" onClick={withdrawShow2}>Withdraw</Button>
 										<Modal
-											size="lg"
 											show={widr2}
 											onHide={withdrawClose1}
 											backdrop="static"
@@ -511,7 +560,7 @@ function Single() {
 											<Modal.Body>
 												<div>
 													<h5>내 예치 자산</h5>
-													<strong>0{/*[예치한토큰갯수]*/}</strong>
+													<strong>{mystaked2}</strong>
 													<span> YKT</span>
 													<br />
 													<br />
