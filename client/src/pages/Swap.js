@@ -14,7 +14,13 @@ import {
 
 const Caver = require("caver-js");
 const caver = new Caver(window.klaytn);
+
 const KIP7ABI = require("../contract/KIP7.json");
+const DexRouterabi = require('../contract/router.json');
+
+const RouterAddress = '0x63e3cB8C959068DD947c3FadF7455044B5C36b8f';
+
+const DexRouterContract = new caver.klay.Contract(DexRouterabi, RouterAddress);
 
 const Swap = ({ form, former, children, todo, todoo, teacher }) => {
   const [show, setShow] = useState(false);
@@ -36,25 +42,33 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
 
   const [save, setSave] = useState("");
 
-  const handleInput = async (e) => {
-    setAmount(e.target.value);
+  const address = useSelector((state) => state.counter);
+  const deadline = parseInt(''+new Date().getTime() / 1000) + 100000;
 
-    console.log(amount);
+  // const handleInput = async (e) => {
+  //   setAmount(e.target.value);
 
-    const DexRouterabi = require('../contract/router.json');
-    const RouterAddress = '0x63e3cB8C959068DD947c3FadF7455044B5C36b8f';
+  //   const a = await DexRouterContract.methods.getAmountsOut(caver.utils.toPeb(e.target.value, "KLAY"), [
+  //     tokenAddress1,
+  //     tokenAddress2,
+  //   ]).call();
 
-    const DexRouterContract = new caver.klay.Contract(DexRouterabi, RouterAddress);
+  //   setSave(caver.utils.fromPeb(a[1], "KLAY"));
 
-    const a = await DexRouterContract.methods.getAmountsOut(caver.utils.toPeb(e.target.value, "KLAY"), [
+  //   console.log(save);
+  // };
+
+  const GetAmountsOut = async () => {
+      const a = await DexRouterContract.methods.getAmountsOut(caver.utils.toPeb(amount, "KLAY"), [
       tokenAddress1,
       tokenAddress2,
     ]).call();
 
     setSave(caver.utils.fromPeb(a[1], "KLAY"));
-
-    console.log(save);
-  };
+  }
+  useEffect(() => {
+    GetAmountsOut();
+  }, [amount]);
  
   const handleCreate = () => setCreate(true);
 
@@ -74,7 +88,6 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
     setShow(false);
   };
 
-  const address = useSelector((state) => state.counter);
 
   const dummydata = {
     token_address: "0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1",
@@ -95,37 +108,26 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
   }
 
   const swap = async () => {
-    const DexRouterabi = require("../contract/router.json");
-    const RouterAddress = "0xE4a8Df9029030926a5cd1E5851A0Bfd609660C2c";
-    const DexRouterContract = new caver.klay.Contract(
-      DexRouterabi,
-      RouterAddress
-    );
 
     const kip7 = new caver.klay.KIP7(tokenAddress1);
 
     const allowed = await kip7.allowance(address.number, RouterAddress);
-    if (allowed.toString() !== "0") {
+    if (allowed<= tokenAmount1) {
       try {
         await kip7.approve(RouterAddress, caver.utils.toPeb("100000000"), {
           from: address.number,
+          gas: 2000000,
         });
       } catch (err) {
         console.log(err);
       }
     }
-    await DexRouterContract.methods
-      .swapExactTokensForTokens(
-        caver.utils.toPeb(amount, "KLAY"),
-        0,
-        [
-          tokenAddress1,
-          tokenAddress2,
-        ],
-        address.number,
-        2222222222222
-      )
-      .send({ from: address.number, gas: 200000000 });
+    let a = await DexRouterContract.methods.swapExactTokensForTokens(caver.utils.toPeb(amount, "KLAY"), 0, [tokenAddress1,tokenAddress2],address.number,deadline).send(
+      {
+        from: address.number,
+        gas: 200000000 
+      });
+    console.log(a);
   };
 
   const [swapData, setSwapData] = useState([
@@ -176,10 +178,12 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
 
   useEffect(() => {
     getToken1();
+    GetAmountsOut();
   }, [tokenAddress1])
 
   useEffect(() => {
     getToken2();
+    GetAmountsOut();
   }, [tokenAddress2])
 
   const options1 = swapData.map((el) => {
@@ -214,6 +218,23 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
     const targetToken2 = SwapToken.find((el) => el.token_name === choice2);
     setTokenAddress2(targetToken2?.token_address);
   }, [choice2]);
+  
+  const handleInputquarter = async () => {
+    const kip7 = new caver.klay.KIP7(tokenAddress1);
+    setAmount(Number(caver.utils.fromPeb(await kip7.balanceOf(address.number)) / 4).toFixed(3))
+  }
+  const handleInputhalf = async () => {
+    const kip7 = new caver.klay.KIP7(tokenAddress1);
+    setAmount(Number(caver.utils.fromPeb(await kip7.balanceOf(address.number)) / 2).toFixed(3))
+  }
+  const handleInputthreequarters = async () => {
+    const kip7 = new caver.klay.KIP7(tokenAddress1);
+    setAmount(Number(caver.utils.fromPeb(await kip7.balanceOf(address.number)) *3 /4).toFixed(3))
+  }
+  const handleInputMax = async () => {
+    const kip7 = new caver.klay.KIP7(tokenAddress1);
+    setAmount(Number(caver.utils.fromPeb(await kip7.balanceOf(address.number))).toFixed(3))
+  }
 
 
   return (
@@ -236,10 +257,10 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
               <Col sm={6}><h4>제공</h4></Col>
               <Col sm={6}>
                 <ButtonGroup>
-                  <Button  variant="secondary">25%</Button>
-                  <Button  variant="secondary">50%</Button>
-                  <Button  variant="secondary">75%</Button>
-                  <Button  variant="secondary">최대치</Button>
+                <Button onClick={handleInputquarter}>25%</Button>
+                <Button onClick={handleInputhalf}>50%</Button>
+                <Button onClick={handleInputthreequarters}>75%</Button>
+                <Button onClick={handleInputMax}>최대치</Button>
                 </ButtonGroup>
               </Col>
             </Row>
@@ -304,13 +325,13 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                 <h3>
                   <input
                     className="number"
-                    placeholder="0.0000"
-                    onChange={(e) => handleInput(e)}
+                    onChange={(e) => setAmount(e.target.value)}
                     onKeyPress={(event) => {
                       if (!/[0-9]/.test(event.key)) {
                         event.preventDefault();
                       }
                     }}
+                    value={(amount)}
                   />
                 </h3>
               </Col>
@@ -320,7 +341,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
             <Row>
               <Col className="swapInfo" sm={4}><h6>잔액</h6></Col>
               <Col className="about" sm={8}>
-                {tokenAmount1}
+              {Number(tokenAmount1).toFixed(3)}
               </Col>
             </Row>
           </Container>
@@ -428,7 +449,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                 <h3>
                   <input
                     className="number"
-                    value={save}
+                    value={Number(save).toFixed(5)}
                     placeholder="0.0000"
                     onKeyPress={(event) => {
                       if (!/[0-9]/.test(event.key)) {
@@ -443,7 +464,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
             <Row>
             <Col className="swapInfo" sm={4}><h6>잔액</h6></Col>
               <Col className="about" sm={8}>
-              {tokenAmount2}
+              {Number(tokenAmount2).toFixed(3)}
               </Col>
             </Row>
           </Container>
