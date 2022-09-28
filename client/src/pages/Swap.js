@@ -254,13 +254,13 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
           {former}
           <Container>
             <Row className="g-4">
-              <Col sm={6}><h4>제공</h4></Col>
+              <Col sm={6}><h4 className="st">제공</h4></Col>
               <Col sm={6}>
                 <ButtonGroup>
-                <Button onClick={handleInputquarter}>25%</Button>
-                <Button onClick={handleInputhalf}>50%</Button>
-                <Button onClick={handleInputthreequarters}>75%</Button>
-                <Button onClick={handleInputMax}>최대치</Button>
+                <Button variant="secondary" onClick={handleInputquarter}>25%</Button>
+                <Button variant="secondary" onClick={handleInputhalf}>50%</Button>
+                <Button variant="secondary" onClick={handleInputthreequarters}>75%</Button>
+                <Button variant="secondary" onClick={handleInputMax}>최대치</Button>
                 </ButtonGroup>
               </Col>
             </Row>
@@ -325,6 +325,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                 <h3>
                   <input
                     className="number"
+                    placeholder="0.0000"
                     onChange={(e) => setAmount(e.target.value)}
                     onKeyPress={(event) => {
                       if (!/[0-9]/.test(event.key)) {
@@ -337,15 +338,15 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
               </Col>
             </Row>
 
-
             <Row>
-              <Col className="swapInfo" sm={4}><h6>잔액</h6></Col>
+              <Col sm={4}><b className="swapInfo">잔액</b></Col>
               <Col className="about" sm={8}>
               {Number(tokenAmount1).toFixed(3)}
               </Col>
             </Row>
           </Container>
         </section>
+        <br/>
 
         <section className="todoo-wrapper">
           {todoo}
@@ -367,8 +368,8 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
           {todo}
           <Container>
             <Row>
-              <Col sm={8}><h4>수령</h4></Col>
-              <Col sm={4}>
+              <Col sm={12}><h4 className="st">수령</h4></Col>
+              {/* <Col sm={4}>
                 <Form>
                   {["checkbox"].map((type) => (
                     <div key={`inline-${type}`} className="mb-3">
@@ -382,7 +383,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
                     </div>
                   ))}
                 </Form>
-              </Col>
+              </Col> */}
             </Row>
           </Container>
         </section>
@@ -462,7 +463,7 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
             </Row>
 
             <Row>
-            <Col className="swapInfo" sm={4}><h6>잔액</h6></Col>
+            <Col sm={4}><b className="swapInfo">잔액</b></Col>
               <Col className="about" sm={8}>
               {Number(tokenAmount2).toFixed(3)}
               </Col>
