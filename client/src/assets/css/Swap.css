@@ -71,5 +71,11 @@
 }
 
 .swapInfo {
-  padding-left: 23px;
+  padding-left: 15px;
+  font-size: 14px;
+}
+
+.st {
+  /* color: rgb(56, 86, 207); */
+  font-style: italic;
 }

@@ -18,3 +18,19 @@
     padding: 30px;
     border: 1px solid white;
 }
+
+.wb {
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 30px;
+    background-color: #23204976;
+}
+
+.wc {
+    font-style: italic;
+}
+
+.jimg {
+    width: 100%;
+    height: auto;
+}
