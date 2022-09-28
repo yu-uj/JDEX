@@ -141,17 +141,15 @@ function MyToken() {
         <ListGroup.Item as="li" variant="secondary">
           <Row>
             <Col xs={4} sm={3}><strong className='mlp'>Token name</strong></Col>
-            <Col xs={8} sm={5}><strong className='mlp'>Amount</strong></Col>
-            <Col xs={6} sm={2}><strong className='mlp'>Price</strong></Col>
-            <Col xs={2} sm={2}><strong className='mlp'>Transfer</strong></Col>
+            <Col xs={8} sm={6}><strong className='mlp'>Amount</strong></Col>
+            <Col xs={2} sm={3}><strong className='mlp'>Transfer</strong></Col>
           </Row>
         </ListGroup.Item>
         <ListGroup.Item as="li">
           <Row>
             <Col xs={4} sm={3}><strong className='myklay'>KLAY</strong></Col>
-            <Col xs={8} sm={5}><strong className='mnum'>{Number(balance).toFixed(1)}</strong></Col>
-            <Col xs={6} sm={2}><strong>1klay</strong></Col>
-            <Col xs={2} sm={2}><Button variant="dark" onClick={handleShow1}>Transfer
+            <Col xs={8} sm={6}><strong className='mnum'>{Number(balance).toFixed(1)}</strong></Col>
+            <Col xs={2} sm={3}><Button variant="dark" onClick={handleShow1}>Transfer
             </Button>
             </Col>
           </Row>
@@ -160,9 +158,8 @@ function MyToken() {
           <ListGroup.Item as="li">
             <Row>
               <Col xs={4} sm={3}><strong className='mytname'>{el.token_name}</strong></Col>
-              <Col xs={8} sm={5}><strong className='mnum'>{Number(el.token_amount).toFixed(1)}</strong></Col>
-              <Col xs={6} sm={2}><strong>{el.token_price}</strong></Col>
-              <Col xs={2} sm={2}>
+              <Col xs={8} sm={6}><strong className='mnum'>{Number(el.token_amount).toFixed(1)}</strong></Col>
+              <Col xs={2} sm={3}>
                 <Button variant="secondary" onClick={() => handleShow(el)}>Transfer
                 </Button>
               </Col>

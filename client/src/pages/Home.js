@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <div>
             <div className="banner">
-                banner 영역
+                <strong>JDEX</strong>
             </div>
 
             <div className="info">
