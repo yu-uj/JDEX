@@ -3,6 +3,7 @@ import Counter from './Counter';
 
 
 const mapStateToProps = (state) => ({
+    number1: state.counter.number1,
     number: state.counter.number
 });
 

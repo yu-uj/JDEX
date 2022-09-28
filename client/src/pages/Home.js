@@ -6,11 +6,13 @@ const Home = () => {
     return (
         <div>
             <div className="banner">
-                banner 영역
+                <strong>JDEX</strong>
             </div>
 
             <div className="info">
-                JDEX 간단 소개 영역
+                <br></br><br></br>
+                <h1>Manage and deposit your assets <br></br>In JongDex </h1><br></br>
+                Enjoy swaps, staking, and transfers in decentralization
             </div>
 
             <br />
@@ -18,11 +20,11 @@ const Home = () => {
                 <div className="wb">
                     <h6 className='wc'>JDEX 이용을 위해</h6>
                     <h5 className='wc'>클레이튼 지갑을 연결 해주세요!</h5>
-                    <br/>
+                    <br />
                     <CounterContainer />
-                    <br/>
+                    <br />
                 </div>
-                
+
             </div>
         </div>
 
