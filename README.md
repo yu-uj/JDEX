@@ -93,7 +93,6 @@ linkcolor: #e3232c
     - [`Farming`](#farming)
       - [Farming: Functions](#farming-functions)
     - [`StakingFactory`](#stakingfactory)
-      - [`deployPool`](#deploypool)
 
 <!-- end intro: only for github, remove if creating a pdf -->
 
@@ -387,19 +386,6 @@ Functions for sending tokens:
 
 스테이킹을 통해 사용자는 만들어진 풀에 대한 토큰을 스테이킹하고 JDEX토큰을 보상으로 얻을 수 있습니다.
 
-##### `deployPool`
-
-The contract for the new staking pool is deployed using `StakingInitializable` contract based on the following:
-
-- staked token address
-- reward token address
-- reward per block (in reward tokens)
-- the start and end blocks
-- the pool limit per user (in staked tokens)
-- the multisig address
-- the limit of the number of blocks available for a user
-
-The function returns the address of a new staking pool contract.
 
 
 ##### Staking: Functions
