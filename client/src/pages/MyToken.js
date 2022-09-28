@@ -6,9 +6,11 @@ import '../assets/css/Page.css';
 
 const Caver = require('caver-js');
 const caver = new Caver(window.klaytn);
+
 const KIP7ABI = require('../contract/KIP7.json');
 
 function MyToken() {
+
   const [currentTokenAddress, setCurrentTokenAddress] = useState("");
 
   const [show, setShow] = useState(false);
@@ -32,7 +34,7 @@ function MyToken() {
   const [KIP7bal, setKIP7bal] = useState("");
 
   const dummydata = {
-    token_address: '0xa7AdB3953C03Ee7Cca887cEFE35266a0b5F1e45d1'
+    token_address: '0xE807326D86f631495Bb9c1F8888604879c18E5BB'
   }
   const handleInput1 = (e) => { setToAddress(e.target.value); };
   const handleInput2 = (e) => { setAmount(e.target.value) };
@@ -72,7 +74,6 @@ function MyToken() {
   const getTokenLists = async () => {
     await axios.get(`http://localhost:4000/mytoken/`)
       .then((res) => {
-        console.log(res);
         setTokenList(() => {
           return res.data['data']
         })
@@ -88,19 +89,18 @@ function MyToken() {
     let arr = [];
     for (let i = 0; i < list.length; i++) {
       let el = list[i];
-
-
-      const KIP7Contract = await new caver.klay.Contract(
+    
+      const KIP7Contract = new caver.klay.Contract(
         KIP7ABI,
         el.token_address
       );
       let bal = await KIP7Contract.methods.balanceOf(address.number).call();
-      let amount = await caver.utils.fromPeb(bal, "KLAY");
+      let amount = caver.utils.fromPeb(bal, "KLAY");
 
       let obj = {
         token_name: el.token_name,
         token_amount: amount,
-        token_price: "가격",
+        token_price: '가격',
         token_address: el.token_address,
       };
       arr.push(obj);
@@ -113,7 +113,6 @@ function MyToken() {
   const klaybalance = async () => {
     let bal = await caver.klay.getBalance(address.number);
     let a = await caver.utils.fromPeb(bal, "KLAY");
-    console.log(a);
     setbalance(a);
   };
 
@@ -129,8 +128,6 @@ function MyToken() {
     KIP7balance();
     Token_List(TokenList);
   }, [TokenList])
-  console.log(KIP7bal)
-
 
   return (
     <>
@@ -153,7 +150,7 @@ function MyToken() {
           <Row>
             <Col xs={4} sm={3}><strong className='myklay'>KLAY</strong></Col>
             <Col xs={8} sm={5}><strong className='mnum'>{Number(balance).toFixed(1)}</strong></Col>
-            <Col xs={6} sm={2}><strong>price</strong></Col>
+            <Col xs={6} sm={2}><strong>1klay</strong></Col>
             <Col xs={2} sm={2}><Button variant="dark" onClick={handleShow1}>Transfer
             </Button>
             </Col>
