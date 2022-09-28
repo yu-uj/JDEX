@@ -1,17 +1,16 @@
 import '../assets/css/Home.css'
-import '../assets/JDEX.png'
+
 import CounterContainer from '../redux/CounterContainer';
 
 const Home = () => {
     return (
         <div>
             <div className="banner">
-                banner 영역
+                <strong>JDEX</strong>
             </div>
 
             <div className="info">
                 JDEX 간단 소개 영역
-                <img className='jimg' src='../assets/JDEX.png'/>
             </div>
 
             <br />
