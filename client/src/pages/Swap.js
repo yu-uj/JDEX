@@ -45,19 +45,6 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
   const address = useSelector((state) => state.counter);
   const deadline = parseInt(''+new Date().getTime() / 1000) + 100000;
 
-  // const handleInput = async (e) => {
-  //   setAmount(e.target.value);
-
-  //   const a = await DexRouterContract.methods.getAmountsOut(caver.utils.toPeb(e.target.value, "KLAY"), [
-  //     tokenAddress1,
-  //     tokenAddress2,
-  //   ]).call();
-
-  //   setSave(caver.utils.fromPeb(a[1], "KLAY"));
-
-  //   console.log(save);
-  // };
-
   const GetAmountsOut = async () => {
       const a = await DexRouterContract.methods.getAmountsOut(caver.utils.toPeb(amount, "KLAY"), [
       tokenAddress1,
@@ -137,7 +124,6 @@ const Swap = ({ form, former, children, todo, todoo, teacher }) => {
   const [SwapToken, setSwapToken] = useState([dummydata]);
   const getSwapToken = async () => {
     await axios.get(`http://localhost:4000/mytoken/`).then((res) => {
-      console.log(res);
       setSwapToken(() => {
         return res.data["data"];
       });
