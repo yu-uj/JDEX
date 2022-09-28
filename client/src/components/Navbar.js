@@ -4,7 +4,7 @@ import React from "react";
 // import Modal from 'react-modal';
 import CounterContainer from '../redux/CounterContainer';
 import '../assets/css/Navbar.css'
-import './JDEX_logo.png'
+// import '../assets/JDlogo.png'
 
 function Navigation() {
 
@@ -14,9 +14,9 @@ function Navigation() {
 				<Container>
 					<Navbar.Brand href="/">
 						<img
-						src="/JDEX_logo.png"
-						width="30"
-						height="30"
+						src={require("../assets/JDlogo.png")}
+						height="50"
+						weight="50"
 						className="d-inline-block align-top"
 						alt="JDEX"
 						/>
