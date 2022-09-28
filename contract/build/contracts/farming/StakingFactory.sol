@@ -26,6 +26,7 @@ contract StakingFactory is Ownable {
      * @return staking address of new staking pool contract
      */
     function deployPool(
+
         address _stakedToken,
         address _rewardToken,
         uint256 _rewardPerBlock,
@@ -33,6 +34,7 @@ contract StakingFactory is Ownable {
         uint256 _rewardEndBlock,
         uint256 _poolLimitPerUser,
         uint256 _numberBlocksForUserLimit
+        
     ) external onlyOwner returns (address staking) {
         require(IKIP7(_stakedToken).totalSupply() >= 0);
         require(IKIP7(_rewardToken).totalSupply() >= 0);
@@ -58,3 +60,4 @@ contract StakingFactory is Ownable {
         emit NewStakingContract(staking);
     }
 }
+

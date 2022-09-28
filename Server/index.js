@@ -16,7 +16,6 @@ app.get('/', (req, res) => {
 //     const connet = new MongoDB(Defs.NAME_DB_ACCOUNT);
 //     const lastid = await connet.lastId();
 //     const id = lastid[0].id + 1;
-
 //     const save = connet.insertData(id, Account);
 
 // })
@@ -34,7 +33,7 @@ app.listen(port, () => {
 })
 
 module.exports = app;
-//git clone -b server --single-branch 
+//git clone -b server --single-branch
 //git branch --server
 //git remote -v -- origin
 //git add .
