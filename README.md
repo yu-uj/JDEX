@@ -42,8 +42,4 @@
   <br>
   
 </div>
-![JDEX4](https://user-images.githubusercontent.com/99964401/192452371-7f2098eb-89d6-40f9-82e9-3ca9cc0d081b.png)
-![JDEX3](https://user-images.gi![JDEX2](https://user-images.githubusercontent.com/99964401/192452399-eb9e70e9-bf06-4573-8934-b4982ceb4579.png)
-thubusercontent.com/99964401/192452388-c9701510-e983-42c4-8656-bf2c87778d55.png)
-![JDEX](https://user-images.githubusercontent.com/99964401/192452412-f5b05263-5c45-4a56-8ebc-15bb5e663c0f.png)
 
