@@ -36,7 +36,7 @@
   <img src="https://img.shields.io/badge/solidity-363636?style=for-the-badge&logo=solidity&logoColor=white">
   <img src="https://img.shields.io/badge/hardhat-124191?style=for-the-badge&logo=hardhat&logoColor=white">
   <img src="https://img.shields.io/badge/truffle-840010?style=for-the-badge&logo=truffle&logoColor=white">
-  <img src="https://img.shields.io/badge/Kailkas-F5AE29?style=for-the-badge&logo=Kailkas&logoColor=black">
+  <img src="https://img.shields.io/badge/Kaikas-F5AE29?style=for-the-badge&logo=Kailkas&logoColor=black">
   <img src="https://img.shields.io/badge/KlaytnIDE-003366?style=for-the-badge&logo=KlaytnIDE&logoColor=white">
   <img src="https://img.shields.io/badge/ganache-A42E2B?style=for-the-badge&logo=ganache&logoColor=white">
   <br>
