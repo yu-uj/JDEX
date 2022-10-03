@@ -29,7 +29,7 @@
 ### → *Klaytn 기반의 DEX(탈중앙화거래소) 구현.*
 
 <aside>
-➡️ **DEX; (Decentralized Exchange)**
+➡️ DEX; (Decentralized Exchange)
 
 **기존의 중앙화거래소(CEX)가 아닌 개인 간 금융(P2P)이 가능한 탈중앙화(분산형) 거래소.** 법정화폐와 암호화폐간의 교환을 허용하지 않고, 암호화폐 토큰을 다른 암호화폐 토큰과 거래하여 블록체인(분산 원장) 위에 구축 및 기록된 **스마트계약의 집합**이다.
 
@@ -43,9 +43,9 @@
 
 **JDEX**는 기존의 중앙화된 거래소의 제삼자 개입 없이 **개인 간 금융(P2P) 거래가 가능한 탈중앙화 거래소** 입니다.
 
-누구나 JDEX 웹 사이트에 방문하여 **지갑(Kaikas)**를 연결하고 보유하고 있는 토큰을 다른 사용자에게 **전송**하거나 다른 토큰으로 **교환** 할 수 있습니다.
+누구나 JDEX 웹 사이트에 방문하여 **지갑**(Kaikas)를 연결하고 보유하고 있는 토큰을 다른 사용자에게 **전송**하거나 다른 토큰으로 **교환** 할 수 있습니다.
 
-또, 토큰을 지갑에 가지고만 있는 것이 아닌, **단일 혹은 페어 풀에 예치**하고, 유동성 제공에 대한 **보상(JDEXTOKEN)**을 얻을 수 있습니다.
+또, 토큰을 지갑에 가지고만 있는 것이 아닌, **단일 혹은 페어 풀에 예치**하고, 유동성 제공에 대한 **보상**(JDEXTOKEN)을 얻을 수 있습니다.
 
 <br/>
 
@@ -154,32 +154,9 @@
 
 ### 📋 DB Api
 
-| EndPoint | Description | METHOD | Parameters | res |
-| --- | --- | --- | --- | --- |
-| /mytoken | 모든 토큰 정보 | GET | X | token_address, 
-token_name,
-token_symbol |
-| staking/singlepool | 단일 풀 정보 | GET | X | token_address, 
-token_name,
-token_symbol |
-| staking/klaypool | Klay-KIP7 풀 정보 | GET | X | pair_address,    
-pair_name,    
-token_address,
-pid |
-| staking/kip7pool | KIP7-KIP7 풀 정보 | GET | X | pair_address,
-pair_name,
-tokenA_address,    
-tokenB_address,
-pid |
-| staking/create_klaypool | Klay-KIP7 pair 생성 | POST | token_address,
-token_amount | X |
-| staking/create_kip7pool | KIP7-KIP7 pair 생성 | POST | tokenA_address,
-tokenA_amount,
-tokenB_address,
-tokenB_amount | X |
-| staking/create_singlepool | 단일 풀 생성 | POST | token_address,
-token_name,
-token_symbol | X |
+### API 리스트
+
+<img width="698" alt="API_List" src="https://user-images.githubusercontent.com/99964401/193606675-3742b16f-c9fc-49aa-9127-11a96ad83b4b.png">
 
 <br/>
 
