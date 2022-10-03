@@ -148,7 +148,7 @@
 
 ### 📋 DB Schema
 
-![DB.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/24506464-c7fa-4e51-8b27-379c30cd97a6/DB.png)
+<img width="613" alt="DB" src="https://user-images.githubusercontent.com/99964401/193568157-2b32a512-8f18-4274-b14f-9d59167e2f0a.png">
 
 <br/>
 
@@ -192,29 +192,24 @@ token_symbol | X |
 
 ### 📋 Flow Chart
 
-![JDEX Flowchart Final.drawio.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/06dda54b-39c0-4c6d-977c-07fd54b35c4a/JDEX_Flowchart_Final.drawio.png)
+![JDEX Flowchart Final drawio](https://user-images.githubusercontent.com/99964401/193568279-245cb89f-ad5a-4cde-8a1a-3534dadcb98f.png)
 
 <br/>
 
 ### 📋 Token Economy
 
-![스크린샷 2022-09-28 오후 8.04.01.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1a02d042-d9a6-48e7-8210-d136c656eec7/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-09-28_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_8.04.01.png)
+<img width="1709" alt="JDEX_TokenEconomy" src="https://user-images.githubusercontent.com/99964401/193568712-eba90a3c-1c83-4d93-9294-a3795ec1a5b1.png">
 
 **[JDEX의 Token Economy]**
 
 - **개발자, 투자자, 유저**들에게 적절한 양의 **토큰을 분배**하고, **예치(단일, 페어 풀)**에 대한 **보상**으로 **JDX 토큰을 지급** 받아 지속가능한 시스템을 구축하고자 하였습니다.
 - 보상으로 주어지는 **JDX 토큰**을 **일정 지분 보유**시 **JDEX의 운영 방향성 및 협의**에 대한 **투표 거버넌스에 참여**할 수 있습니다.
 
-<br/>
-
-### 📋 Tech Stacks
-
-![JDEXstacks 복사본.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6b683fa7-6cd2-45db-9b36-c8f08f88e25b/JDEXstacks_%E1%84%87%E1%85%A9%E1%86%A8%E1%84%89%E1%85%A1%E1%84%87%E1%85%A9%E1%86%AB.png)
 
 <br/>
 <br/>
 
-<div align=center><h1>📚 STACKS</h1></div>
+<div align=center><h1>📚 JDEX STACKS</h1></div>
 
 <div align=center> 
 
@@ -267,8 +262,9 @@ linkcolor: #e3232c
 -->
 <!-- start intro: only for github, remove if creating a pdf -->
 
+</br>
 
-# JongDex <!-- omit in toc -->
+# JongDex Docs <!-- omit in toc -->
 
 
 
