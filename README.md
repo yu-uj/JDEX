@@ -263,6 +263,7 @@ linkcolor: #e3232c
 <!-- start intro: only for github, remove if creating a pdf -->
 
 </br>
+</br>
 
 # JongDex Docs <!-- omit in toc -->
 
